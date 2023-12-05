@@ -1,0 +1,21 @@
+{
+  "name": "g-link",
+  "version": "1.0.0",
+  "description": "back-end service for G-Link",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chat-application"
+  ],
+  "author": "Shivaraj M Shetty",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
