@@ -2,6 +2,7 @@
 
 // imports
 const User = require('../../../model/user');
+const jwt = require('jsonwebtoken');
 
 // action to create/register user
 module.exports.createUser = async function(req, res){
@@ -62,6 +63,39 @@ module.exports.createUser = async function(req, res){
         console.log(`Error: ${err}`);
         return res.status(500).json({
             message: 'Internal server error',
+            success: false
+        });
+    }
+}
+
+
+// action to sign-in a user
+module.exports.createSession = async function(req, res){
+    try{
+        const {email, password} = req.body;
+
+        // find the user
+        const user = await User.findOne({ email });
+
+        // check for invalid credentials
+        if(!user || password !== user.password){
+            return res.status(422).json({
+                message: 'Invalid username/password',
+                success: false
+            });
+        }
+
+        return res.status(200).json({
+            data: {
+                token: jwt.sign(user.toJSON(), 'g-link', {expiresIn: '100000'})
+            },
+            message: 'Sign-in successfull, here is your token. Please keep it safe',
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal Server error',
             success: false
         });
     }

@@ -7,6 +7,7 @@ const router = express.Router();
 
 // route the requets
 router.post('/register', usersAPI.createUser);
+router.get('/create-session', usersAPI.createSession);
 
 
 // export the router
