@@ -1,6 +1,8 @@
 // imports
 const express = require('express');
 const db = require('./config/mongoose');
+const paspport = require('passport');
+const passwortJWT = require('./config/passport-jwt-strategy');
 
 const app = express();
 const port = 8000;
