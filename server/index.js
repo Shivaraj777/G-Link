@@ -5,6 +5,11 @@ const db = require('./config/mongoose');
 const app = express();
 const port = 8000;
 
+//middleware to parse the form data
+app.use(express.urlencoded({extended: true}));
+
+// middleware to route the requets
+app.use('/', require('./routes/index'));
 
 // listen on the server
 app.listen(port, (err) => {
