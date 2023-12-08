@@ -14,7 +14,7 @@ let opts = {
 passport.use(new JWTStrategy(opts, async function(jwtPayLoad, done){
     try{
         // find the user
-        const user = await User.findOne(jwtPayLoad._id);
+        const user = await User.findById(jwtPayLoad._id);
 
         if(user){
             return done(null, user); // null -> no error, user -> authentication success

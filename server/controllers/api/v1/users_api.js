@@ -100,3 +100,35 @@ module.exports.createSession = async function(req, res){
         });
     }
 }
+
+// action to search users
+module.exports.searchUsers = async function(req, res){
+    try{
+        // query -> returns users whose name and email matches keyword
+        const keyword = req.params.search
+            ? {
+                $or: [
+                    { name: { $regex: req.params.search, $options: 'i' }},
+                    { email: { $regex: req.params.search, $options: 'i' }}
+                ]
+            }
+            : {};
+
+        // fetch all users except logged-in user
+        const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+
+        res.status(200).json({
+            data: {
+                users
+            },
+            message: 'Fetched all the users successfully',
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        res.status(500).json({
+            message: 'Internal server error',
+            success: false
+        });
+    }
+}
