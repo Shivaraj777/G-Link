@@ -78,7 +78,7 @@ module.exports.createSession = async function(req, res){
         const user = await User.findOne({ email });
 
         // check for invalid credentials
-        if(!user || password !== user.password){
+        if(!user || !(await user.matchPassword(password))){
             return res.status(422).json({
                 message: 'Invalid username/password',
                 success: false
