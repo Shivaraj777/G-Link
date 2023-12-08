@@ -10,6 +10,7 @@ const router = express.Router();
 router.post('/register', usersAPI.createUser);
 router.get('/create-session', usersAPI.createSession);
 router.get('/search-users/:search', passport.authenticate('jwt', {session: false}), usersAPI.searchUsers);
+router.get('/get-user-detail', passport.authenticate('jwt', {session: false}), usersAPI.getUser);
 
 
 // export the router

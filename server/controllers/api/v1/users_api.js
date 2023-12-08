@@ -132,3 +132,23 @@ module.exports.searchUsers = async function(req, res){
         });
     }
 }
+
+// action to get current user details
+module.exports.getUser = function(req, res){
+    try{
+        const userDetails = req.user;
+        return res.status(200).json({
+            data: {
+                userDetails
+            },
+            message: 'User details fetched successfully!',
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            sucess: false
+        });
+    }
+}
