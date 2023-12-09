@@ -87,7 +87,7 @@ module.exports.createSession = async function(req, res){
 
         return res.status(200).json({
             data: {
-                token: jwt.sign(user.toJSON(), 'g-link', {expiresIn: '100000'})
+                token: jwt.sign(user.toJSON(), 'g-link', {expiresIn: '500000'})
             },
             message: 'Sign-in successfull, here is your token. Please keep it safe',
             success: true
@@ -149,6 +149,38 @@ module.exports.getUser = function(req, res){
         return res.status(500).json({
             message: 'Internal server error',
             sucess: false
+        });
+    }
+}
+
+// action to update user profile
+module.exports.updateProfile = async function(req, res){
+    try{
+        const { name, about} = req.body;
+
+        // name and about are blank
+        if(!name || !about){
+            return res.status(400).json({
+                message: 'Name/About cannot be blank',
+                success: false
+            });
+        }
+
+        // update user details
+        const user = await User.findByIdAndUpdate(req.user._id, { $set: {name: name, about: about} }, {new: true}).select('-password');
+
+        return res.status(200).json({
+            data: {
+                user
+            },
+            message: 'User profile updated successfully',
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            success: false
         });
     }
 }

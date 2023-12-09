@@ -41,11 +41,12 @@ userSchema.methods.matchPassword = async function(enteredPassword){
 
 // hash the password before saving
 userSchema.pre('save', async function(next){
-    if(!this.isModified){
+    if(!this.isModified('password')){
         next();
     }
 
     this.password = await bcrypt.hash(this.password, saltRounds);
+    next();
 });
 
 // create the model
