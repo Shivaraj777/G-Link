@@ -3,6 +3,8 @@
 // imports
 const User = require('../../../model/user');
 const jwt = require('jsonwebtoken');
+const utils = require('../../../utils');
+const usersMailer = require('../../../mailers/users_mailer');
 
 // action to create/register user
 module.exports.createUser = async function(req, res){
@@ -44,6 +46,11 @@ module.exports.createUser = async function(req, res){
 
         // if user is created successfully
         if(user){
+            // send verification email
+            const token = utils.generateToken(user, '120s');
+            const url = `http://localhost:8000/api/v1/user/verify-email/${token}`;
+            usersMailer.verifyAccount(user, url);
+
             // console.log('User registered successfully');
             return res.status(200).json({
                 data: {

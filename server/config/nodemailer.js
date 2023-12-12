@@ -5,7 +5,7 @@ const path = require('path');
 const env = require('./environment');
 
 // define transporter for sending emails
-let transporter = nodemailer.transporter(env.smtp);
+let transporter = nodemailer.createTransport(env.smtp);
 
 // render the html template for email
 let renderTemplate = (data, relativePath) => {
