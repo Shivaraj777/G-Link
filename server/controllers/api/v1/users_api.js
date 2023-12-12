@@ -48,7 +48,7 @@ module.exports.createUser = async function(req, res){
         if(user){
             // send verification email
             const token = utils.generateToken(user, '120s');
-            const url = `http://localhost:8000/api/v1/user/verify-email/${token}`;
+            const url = `http://localhost:8000/verify-email/${token}`;
             usersMailer.verifyAccount(user, url);
 
             // console.log('User registered successfully');
@@ -211,7 +211,7 @@ module.exports.resendVerificationEmail = async (req, res) => {
 
         // if user is found send verification email
         const token = utils.generateToken(user, '120s');
-        const url = `http://localhost:8000/api/v1/user/verify-email/${token}`;
+        const url = `http://localhost:8000/verify-email/${token}`;
         usersMailer.verifyAccount(user, url); 
 
         return res.status(200).json({
