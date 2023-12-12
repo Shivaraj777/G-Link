@@ -94,7 +94,7 @@ module.exports.createSession = async function(req, res){
 
         return res.status(200).json({
             data: {
-                token: jwt.sign(user.toJSON(), 'g-link', {expiresIn: '500000'})
+                token: utils.generateToken(user)
             },
             message: 'Sign-in successfull, here is your token. Please keep it safe',
             success: true
