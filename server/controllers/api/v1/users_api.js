@@ -226,3 +226,40 @@ module.exports.resendVerificationEmail = async (req, res) => {
         });
     }
 }
+
+// action to verify email
+module.exports.verifyEmail = async function(req, res){
+    try{
+        // decode the token
+        const {token} = req.body;
+        const decodedJWT = jwt.verify(token, 'g-link');
+        console.log(decodedJWT);
+
+        // find the user
+        const user = await User.findById(decodedJWT._id);
+
+        // if user not found
+        if(!user){
+            console.log('The verification link has expired/Invalid link');
+            return res.status(400).json({
+                message: 'The verification link has expired/Invalid link',
+                status: false
+            });
+        }
+
+        // if user is found set accpunt as verified
+        user.is_verified = true;
+        user.save();
+
+        return res.status(200).json({
+            message: 'User Email verified successfully',
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            success: false
+        });
+    }
+}

@@ -13,6 +13,7 @@ router.get('/search-users/:search', passport.authenticate('jwt', {session: false
 router.get('/get-user-detail', passport.authenticate('jwt', {session: false}), usersAPI.getUser);
 router.put('/update-profile', passport.authenticate('jwt', {session: false}), usersAPI.updateProfile);
 router.get('/resend/verification-email', usersAPI.resendVerificationEmail);
+router.patch('/verify-email', usersAPI.verifyEmail);
 
 
 // export the router
