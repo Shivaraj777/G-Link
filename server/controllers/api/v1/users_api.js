@@ -191,3 +191,38 @@ module.exports.updateProfile = async function(req, res){
         });
     }
 }
+
+// action to re-send verification link
+module.exports.resendVerificationEmail = async (req, res) => {
+    try{
+        const {email} = req.body;
+
+        // find the user
+        const user = await User.findOne({email});
+
+        // if user is not found
+        if(!user){
+            console.log('Invalid email address');
+            return res.status(400).json({
+                message: 'Invalid email address',
+                success: false
+            });
+        }
+
+        // if user is found send verification email
+        const token = utils.generateToken(user, '120s');
+        const url = `http://localhost:8000/api/v1/user/verify-email/${token}`;
+        usersMailer.verifyAccount(user, url); 
+
+        return res.status(200).json({
+            message: `An email is sent to ${user.email}. Please verify ypur email.`,
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            success: false
+        });
+    }
+}

@@ -12,6 +12,7 @@ router.get('/create-session', usersAPI.createSession);
 router.get('/search-users/:search', passport.authenticate('jwt', {session: false}), usersAPI.searchUsers);
 router.get('/get-user-detail', passport.authenticate('jwt', {session: false}), usersAPI.getUser);
 router.put('/update-profile', passport.authenticate('jwt', {session: false}), usersAPI.updateProfile);
+router.get('/resend/verification-email', usersAPI.resendVerificationEmail);
 
 
 // export the router
