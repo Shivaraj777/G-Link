@@ -15,6 +15,7 @@ router.put('/update-profile', passport.authenticate('jwt', {session: false}), us
 router.get('/resend/verification-email', usersAPI.resendVerificationEmail);
 router.patch('/verify-email', usersAPI.verifyEmail);
 router.get('/forgot-password', usersAPI.forgotPassword);
+router.patch('/reset-password', usersAPI.resetPassword);
 
 
 // export the router

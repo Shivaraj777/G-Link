@@ -298,3 +298,41 @@ module.exports.forgotPassword = async function(req, res){
         });
     }
 }
+
+// action to reset password
+module.exports.resetPassword = async function(req, res){
+    try{
+        const {token, newPassword} = req.body;
+
+        // decode the token and find the user
+        const decodedJWT = jwt.verify(token, 'g-link');
+        let user = await User.findById(decodedJWT._id);
+
+        if(!user){
+            console.log('The Token is expired/invalid');
+            return res.status(400).json({
+                message: 'The Token is expired/invalid',
+                success: false
+            });
+        }
+
+        // if user is found reset the password
+        user.password = newPassword;
+        user = await user.save();
+
+        return res.status(200).json({
+            data: {
+                user
+            },
+            message: 'User password reset successfully',
+            success: false
+        });
+
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server Error',
+            success: false
+        });
+    }
+}
