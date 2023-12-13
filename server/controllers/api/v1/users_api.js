@@ -233,7 +233,7 @@ module.exports.verifyEmail = async function(req, res){
         // decode the token
         const {token} = req.body;
         const decodedJWT = jwt.verify(token, 'g-link');
-        console.log(decodedJWT);
+        // console.log(decodedJWT);
 
         // find the user
         const user = await User.findById(decodedJWT._id);
@@ -259,6 +259,41 @@ module.exports.verifyEmail = async function(req, res){
         console.log(`Error: ${err}`);
         return res.status(500).json({
             message: 'Internal server error',
+            success: false
+        });
+    }
+}
+
+// action to email reset password link
+module.exports.forgotPassword = async function(req, res){
+    try{
+        const {email} = req.body;
+
+        // find the user
+        const user = await User.findOne({email});
+
+        // if user not found
+        if(!user){
+            console.log('Invalid email address');
+            return res.status(400).json({
+                message: 'Invalid user, please enter a valid email',
+                success: false
+            });
+        }
+
+        // send email to reset password
+        const token = utils.generateToken(user, '300s');
+        const passwordResetURL = `http://localhost:8000/reset-password/${token}`;
+        usersMailer.forgotPasswordMail(user, passwordResetURL);
+
+        return res.status(200).json({
+            message: `A link to reset your password is sent to ${user.email}. Please reset your password`,
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Interal server error',
             success: false
         });
     }
