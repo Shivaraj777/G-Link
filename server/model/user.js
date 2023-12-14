@@ -33,6 +33,9 @@ const userSchema = new mongoose.Schema({
     is_verified: {
         type: Boolean,
         default: false
+    },
+    cloudinary_id: {
+        type: String
     }
 }, {
     timestamps: true

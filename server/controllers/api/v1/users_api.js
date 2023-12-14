@@ -5,6 +5,7 @@ const User = require('../../../model/user');
 const jwt = require('jsonwebtoken');
 const utils = require('../../../utils');
 const usersMailer = require('../../../mailers/users_mailer');
+const cloudinary = require('../../../config/cloudinary');
 
 // action to create/register user
 module.exports.createUser = async function(req, res){
@@ -332,6 +333,52 @@ module.exports.resetPassword = async function(req, res){
         console.log(`Error: ${err}`);
         return res.status(500).json({
             message: 'Internal server Error',
+            success: false
+        });
+    }
+}
+
+// api to update/upload user profile image
+module.exports.uploadProfileImage = async function(req, res){
+    try{
+        const file = req.file;
+
+        // find the user
+        let user = await User.findById(req.user.id);
+
+        // if user not found
+        if(!user){
+            console.log('Invalid user');
+            return res.status(400).json({
+                message: 'Invalid user',
+                success: false
+            });
+        }
+
+        // delete existing profile image from cludinary
+        if(user.cloudinary_id){
+            await cloudinary.uploader.destroy(user.cloudinary_id);
+        }
+
+        // upload new profile image to cloudinary
+        const result = await cloudinary.uploader.upload(file);
+
+        // update user
+        user.profile = result.secure_url || user.profile;
+        user.cloudinary_id = result.public_id || user.cloudinary_id;
+        user = await user.save();
+
+        return res.satus(200).json({
+            data: {
+                user
+            },
+            message: 'User profile image uploaded successfully',
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
             success: false
         });
     }
