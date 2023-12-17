@@ -338,7 +338,7 @@ module.exports.resetPassword = async function(req, res){
     }
 }
 
-// api to update/upload user profile image
+// action to update/upload user profile image
 module.exports.uploadProfileImage = async function(req, res){
     try{
         const file = req.file;
@@ -361,14 +361,14 @@ module.exports.uploadProfileImage = async function(req, res){
         }
 
         // upload new profile image to cloudinary
-        const result = await cloudinary.uploader.upload(file);
+        const result = await cloudinary.uploader.upload(file.path);
 
         // update user
         user.profile = result.secure_url || user.profile;
         user.cloudinary_id = result.public_id || user.cloudinary_id;
         user = await user.save();
 
-        return res.satus(200).json({
+        return res.status(200).json({
             data: {
                 user
             },

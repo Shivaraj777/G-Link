@@ -2,9 +2,14 @@
 const express = require('express');
 const usersAPI = require('../../../controllers/api/v1/users_api');
 const passport = require('passport');
+const multer = require('multer');
 
 // create the router
 const router = express.Router();
+
+// creating multer storage
+const storage = multer.diskStorage({});
+const upload = multer({storage});
 
 // route the requets
 router.post('/register', usersAPI.createUser);
@@ -16,7 +21,7 @@ router.get('/resend/verification-email', usersAPI.resendVerificationEmail);
 router.patch('/verify-email', usersAPI.verifyEmail);
 router.get('/forgot-password', usersAPI.forgotPassword);
 router.patch('/reset-password', usersAPI.resetPassword);
-router.put('/upload/profile-image', passport.authenticate('jwt', {session: false}), usersAPI.uploadProfileImage);
+router.put('/upload/profile-image', passport.authenticate('jwt', {session: false}), upload.single('image'), usersAPI.uploadProfileImage);
 
 
 // export the router
