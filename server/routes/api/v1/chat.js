@@ -8,6 +8,7 @@ const router = express.Router();
 
 // route the requests
 router.post('/', passport.authenticate('jwt', {session: false}), ChatAPI.accessChat);
+router.get('/', passport.authenticate('jwt', {session: false}), ChatAPI.fetchChats);
 
 // export the router
 module.exports = router;

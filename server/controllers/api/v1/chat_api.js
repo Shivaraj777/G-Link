@@ -76,3 +76,36 @@ module.exports.accessChat = async function(req, res){
         });
     }
 }
+
+
+// action to fetch all chats for a user
+module.exports.fetchChats = async function(req, res){
+    try{
+        // get the chats associated with current user
+        let userChats = await Chat.find({ users: req.user._id })
+            .populate('users', '-password')
+            .populate('groupAdmin', '-password')
+            .populate('latestMessage')
+            .sort({ updatedAt: -1 });
+        
+        // populate latest message and it's sender details
+        userChats = await User.populate(userChats, {
+            path: 'latestMessage.sender',
+            select: 'name email profile'
+        });
+
+        return res.status(200).json({
+            data: {
+                userChats
+            },
+            message: 'User chats fetched successfully',
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            success: false
+        });
+    }
+}
