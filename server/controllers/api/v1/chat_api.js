@@ -273,3 +273,56 @@ module.exports.addUserToGroup = async function(req, res){
         });
     }
 }
+
+
+// action to remove an user from group chat
+module.exports.removeUserFromGroup = async function(req, res){
+    try{
+        const {chatId, userId} = req.body;
+
+        // check if chatId and userId are present
+        if(!chatId || !userId){
+            return res.status(400).json({
+                message: 'ChatId/UserId cannot be blank',
+                success: false
+            });
+        }
+
+        // find the groupChat
+        const groupChat = await Chat.findById(chatId);
+
+        // if user does not exist in group
+        if(!groupChat.users.includes(userId)){
+            return res.status(400).json({
+                message: 'User is not present in the group chat',
+                success: false
+            });
+        }
+
+        // remove the user from group chat
+        const updatedGroupChat = await Chat.findByIdAndUpdate(chatId, { $pull: { users: userId }}, { new: true })
+            .populate('users', '-password')
+            .populate('groupAdmin', '-password');
+
+        if(!updatedGroupChat){
+            return res.status(400).json({
+                message: 'Error in removing user from group chat',
+                success: false
+            });
+        }else{
+            return res.status(200).json({
+                data: {
+                    updatedGroupChat
+                },
+                message: 'User removed from group chat successfully',
+                success: true
+            });
+        }
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            success: false
+        });
+    }
+}
