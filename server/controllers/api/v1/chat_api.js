@@ -109,3 +109,65 @@ module.exports.fetchChats = async function(req, res){
         });
     }
 }
+
+
+// action to create a group chat
+module.exports.createGroupChat = async function(req, res){
+    try{
+        const {groupName, groupUsers} = req.body;
+
+        // check if group name or users details are present
+        if(!groupName || !groupUsers){
+            return res.status(400).json({
+                message: 'Group name/Users cannot be null',
+                success: false
+            });
+        }
+
+        // convert encoded string to array and add current user
+        const users = groupUsers.split(' ');
+        users.push(req.user._id);
+
+        // check for min. users in group
+        if(users.length < 3){
+            return res.status(400).json({
+                message: 'A minimum of 3 users are require to created a group',
+                success: false
+            });
+        }
+
+        const chatDetails = {
+            chatName: groupName,
+            isGroupChat: true,
+            users: users,
+            groupAdmin: req.user._id
+        }
+
+        // create the group chat
+        let groupChat = await Chat.create(chatDetails);
+
+        if(groupChat){
+            groupChat = await groupChat.populate('users', '-password');
+            groupChat = await groupChat.populate('groupAdmin', '-password');
+
+            return res.status(200).json({
+                data: {
+                    groupChat
+                },
+                message: 'Group chat created successfully',
+                success: true
+            });
+        }else{
+            return res.status(400).json({
+                message: 'Error in creating group chat',
+                success: false
+            });
+        }
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            success: false
+        });
+    }
+}
