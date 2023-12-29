@@ -171,3 +171,44 @@ module.exports.createGroupChat = async function(req, res){
         });
     }
 }
+
+
+// action to re-name group chat
+module.exports.renameGroupChat = async function(req, res){
+    try{
+        const {chatId, groupName} = req.body;
+
+        // check if chatId and chatName are present
+        if(!chatId || !groupName){
+            return res.status(400).json({
+                message: 'ChatId or new group name cannot be empty'
+            });
+        }
+
+        // update the group name
+        let updatedGroupChat = await Chat.findByIdAndUpdate(chatId, { chatName: groupName }, { new: true });
+
+        if(!updatedGroupChat){
+            return res.status(400).json({
+                message: 'Error in renaming group chat',
+                success: false
+            });
+        }else{
+            updatedGroupChat = await updatedGroupChat.populate('users', '-password');
+            updatedGroupChat = await updatedGroupChat.populate('groupAdmin', '-password');
+            return res.status(200).json({
+                data: {
+                    updatedGroupChat
+                },
+                message: 'Group chat renamed successfully',
+                success: true
+            });
+        }
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            success: false
+        });
+    }
+}
