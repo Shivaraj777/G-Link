@@ -62,3 +62,30 @@ module.exports.sendMessage = async function(req, res){
     }
 }
 
+
+// action to fetch all the messages for a particular chat
+module.exports.getMessages = async function(req, res){
+    try{
+        const {chatId} = req.params;
+
+        // find the chat messages
+        const messages = await Message.find({ chat: chatId })
+            .populate('sender', 'name email profile')
+            .populate('chat');
+
+        return res.status(200).json({
+            data: {
+                messages
+            },
+            message: `Messages for chat: ${chatId} fetched successfully`,
+            success: true
+        });
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            success: false
+        });
+    }
+}
+

@@ -8,6 +8,7 @@ const router = express.Router();
 
 // route thr requests
 router.post('/send-message', passport.authenticate('jwt', {session: false}), MessagesAPI.sendMessage);
+router.get('/:chatId', passport.authenticate('jwt', {session: false}), MessagesAPI.getMessages);
 
 // export router
 module.exports = router;
