@@ -11,6 +11,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), ChatAPI.accessC
 router.get('/', passport.authenticate('jwt', {session: false}), ChatAPI.fetchChats);
 router.post('/create-group', passport.authenticate('jwt', {session: false}), ChatAPI.createGroupChat);
 router.patch('/rename-group', passport.authenticate('jwt', {session: false}), ChatAPI.renameGroupChat);
+router.put('/add-to-group', passport.authenticate('jwt', {session: false}), ChatAPI.addUserToGroup);
 
 // export the router
 module.exports = router;

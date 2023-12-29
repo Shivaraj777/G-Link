@@ -212,3 +212,64 @@ module.exports.renameGroupChat = async function(req, res){
         });
     }
 }
+
+
+// action to add user to group
+module.exports.addUserToGroup = async function(req, res){
+    try{
+        const {chatId, userId} = req.body;
+
+        // check if chatId and userId are present
+        if(!chatId || !userId){
+            return res.status(400).json({
+                message: 'ChatId/UserId cannot be blank',
+                success: false
+            });
+        }
+
+        // find the groupChat
+        const groupChat = await Chat.findById(chatId);
+
+        // check if current user is groupAdmin
+        if(JSON.stringify(req.user._id) !== JSON.stringify(groupChat.groupAdmin)){
+            return res.status(400).json({
+                message: 'Only group admin can add an user to the group',
+                success: false
+            });
+        }
+
+        // check if user already exists in group
+        if(groupChat.users.includes(userId)){
+            return res.status(400).json({
+                message: 'User is already added to the group chat',
+                success: false
+            });
+        }
+
+        // add the user to group chat
+        const updatedGroupChat = await Chat.findByIdAndUpdate(chatId, { $push: { users: userId }}, { new: true })
+            .populate('users', '-password')
+            .populate('groupAdmin', '-password');
+
+        if(!updatedGroupChat){
+            return res.status(400).json({
+                message: 'Error in adding user to group chat',
+                success: false
+            });
+        }else{
+            return res.status(200).json({
+                data: {
+                    updatedGroupChat
+                },
+                message: 'User added to group chat successfully',
+                success: true
+            });
+        }
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return res.status(500).json({
+            message: 'Internal server error',
+            success: false
+        });
+    }
+}
