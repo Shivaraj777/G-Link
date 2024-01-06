@@ -1,11 +1,10 @@
 import './App.css';
+import AppHeader from './components/AppHeader';
 
 function App() {
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline">
-        G-Link start
-      </h1>
+      <AppHeader />
     </div>
   );
 }
