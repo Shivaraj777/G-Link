@@ -31,13 +31,13 @@ function Navbar() {
           }
 
           <li>
-            <a href='#' className='navbar-link'>
+            <a href='/' className='navbar-link'>
               <Button className='button'>Login</Button>
             </a>
           </li>
 
           <li>
-            <a href='#' className='navbar-link'>
+            <a href='/' className='navbar-link'>
               <Button className='button'>SignUp</Button>
             </a>
           </li>

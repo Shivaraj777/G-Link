@@ -26,11 +26,22 @@ const Header = styled.header`
     height: 100px;
   }
 
+  .header.active{
+    background-color: ${({theme}) => theme.colors.bg2.primary};
+    box-shadoe: 0 0 20px ${({theme}) => theme.colors.boxShadow.primary};
+  }
+
   .hero-section-logo{
     width: 100%;
   }
   .logo{
     height: 4rem;
+  }
+
+  @media(max-width: 1138px){
+    .header{
+      background-color: ${({theme}) => theme.colors.bg2.primary};
+    }
   }
 `;
 
