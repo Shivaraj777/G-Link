@@ -1,6 +1,6 @@
 import './App.css';
-import AppHeader from './components/AppHeader';
 import { ThemeProvider } from 'styled-components';
+import HomePage from './pages/HomePage';
 
 function App() {
 
@@ -51,7 +51,7 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={lightTheme}>
-        <AppHeader />
+        <HomePage />
       </ThemeProvider>
     </div>
   );
