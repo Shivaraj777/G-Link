@@ -8,6 +8,8 @@ function HeroSection() {
     <StyledHeroSection className='hero-section' id='home'>
       <div className='custom-container flex h-full items-center'>
         <div className='flex'>
+
+          {/* Welcome message */}
           <div className='hero-section-data flex flex-col justify-start'>
             <p>Welcome to</p>
             <h1 className='font-bold'>Real time chat application for all your needs</h1>
@@ -95,6 +97,10 @@ const StyledHeroSection = styled.section`
       font-family: Roboto, sans-serif;
       line-height: 1.8;
       color: #787976;
+    }
+
+    .start-btn{
+      margin: 2.5rem 0;
     }
 
     .button {
