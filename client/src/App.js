@@ -1,8 +1,20 @@
 import './App.css';
 import { ThemeProvider } from 'styled-components';
 import HomePage from './pages/HomePage';
+import AOS from 'aos';
+import "aos/dist/aos.css";
+import { useEffect } from 'react';
 
 function App() {
+
+  // initialize AOS
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      duration: 2000,
+      offset: 100
+    });
+  }, []);
 
   const lightTheme = {
     colors: {

@@ -10,7 +10,7 @@ function HeroSection() {
         <div className='flex'>
 
           {/* Welcome message */}
-          <div className='hero-section-data flex flex-col justify-start'>
+          <div className='hero-section-data flex flex-col justify-start' data-aos='fade-right'>
             <p>Welcome to</p>
             <h1 className='font-bold'>Real time chat application for all your needs</h1>
             <p>
