@@ -93,14 +93,10 @@ const StyledHeroSection = styled.section`
       font-size: calc(1.2 * (1rem + 3 * (100vw - 320px) / 1600));
       margin: 0 0;
       max-width: 750px;
-      font-weight: 500;
+      font-weight: 600;
       font-family: Roboto, sans-serif;
       line-height: 1.8;
-      color: #787976;
-    }
-
-    .start-btn{
-      margin: 2.5rem 0;
+      color: rgba(0, 0, 0, 0.5);
     }
 
     .button {
@@ -204,6 +200,55 @@ const StyledHeroSection = styled.section`
     100% {
       top: 10%;
       opacity: 0;
+    }
+  }
+
+  // media queries
+  @media(min-width: ${({ theme }) => theme.media.mobile}){
+    .start-btn{
+      margin: 2.5rem 0;
+    }
+    .custom-container{
+      padding: 0 5rem;
+    }
+    .button{
+      font-size: 1rem;
+    }
+  }
+
+  @media(max-width: ${({ theme }) => theme.media.mobile}){
+    background-image: url("/images/hero-section-mobile.png");
+    padding: 0rem 0rem;
+    
+    .custom-container{
+      padding: 0;
+    }
+
+    .start-btn{
+      margin: 2.5rem auto;
+    }
+
+    .hero-section-data{
+      margin-top: 85px;
+      h1{
+        font-size: 1.5rem;
+      }
+      p{
+        font-size: 1.2rem;
+        line-height: 1.4;
+      }
+      h1,
+      p{
+        text-align: center;
+      }
+    }
+
+    .button{
+      font-size: 1.2rem;
+    }
+
+    .container{
+      padding: 1rem;
     }
   }
 `;
