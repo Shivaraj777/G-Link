@@ -31,6 +31,31 @@ function Technologies() {
       </div>
 
       {/* animated shapes */}
+      <div className='shapes'>
+        <div className='shape-1'>
+          <img width='250px' src='/images/circle-fill.png' alt='circle-fill-img' />
+        </div>
+
+        <div className='shape-2'>
+          <div style={{width: '200px'}}>
+            <img width='800px' src='/images/circle-fill.png' alt='circle-fill-img' />
+          </div>
+        </div>
+
+        <div className='shape-3'>
+          <div style={{width: '150px'}}>
+            <img width='800px' src='/images/rect.png' alt='rectangle-img' />
+          </div>
+        </div>
+
+        <div className='shape-4'>
+          <img width='43px' src='/images/circle-hollow.png' alt='circle-hollow-img' />
+        </div>
+
+        <div className='shape-5'>
+          <img width='43px' src='/images/diamond.png' alt='diamond-img' style={{zIndex: '2'}} />
+        </div>
+      </div>
     </StyledTechnologies>
   )
 }
