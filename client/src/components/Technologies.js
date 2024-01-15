@@ -62,7 +62,112 @@ function Technologies() {
 
 // styled component
 const StyledTechnologies = styled.section`
-  
+  position: relative;
+  padding: 5rem 0;
+  background-color: ${({theme}) => theme.colors.bg2.primary};
+
+  .custom-container{
+    position: relative;
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+    z-index: 20;
+
+    .section-header{
+      margin: 0 0 25px;
+      h2{
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: ${({ theme }) => theme.colors.heading};
+        margin: 25px 0;
+      }
+    }
+
+    .technologies-list{
+      text-align: center;
+      margin: 25px 0;
+
+      ul{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        li{
+          div{
+            background-color: ${({ theme }) => theme.colors.bg2.secondary};
+            border-width: 1px 1px 1px 1px;
+            border-color: ${({ theme }) => theme.colors.border2.primary};
+            width: 10rem;
+            height: 10rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px 50px;
+            border-radius: 10px;
+            transition: all 0.5s;
+            &:hover{
+              box-shadow: 0px 4px 24px ${({ theme }) => theme.colors.boxShadow.primary};
+              transform: scale(1.1);
+            }
+          }
+
+          img{
+            max-width: 100%;
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+
+  // shapes styles
+  .shapes{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    animation: Zoom-fade 5s infinite linear;
+    z-index: 1;
+
+    div{
+      position: absolute;
+    }
+
+    .shape-1 {
+      top: -10%;
+      left: -3%;
+      opacity: 0.1;
+    }
+
+    .shape-2 {
+      top: -15%;
+      right: 16%;
+      opacity: 0.1;
+    }
+
+    .shape-3 {
+      top: 70%;
+      left: -3%;
+      transform-origin: center;
+      transform: rotate(20deg);
+      opacity: 0.1;
+    }
+
+    .shape-4 {
+      bottom: 0%;
+      left: 20%;
+      transition: all 0.5s;
+      animation: balloonfly-02 12s infinite;
+    }
+
+    .shape-5 {
+      bottom: 0%;
+      right: 20%;
+      transition: all 0.5s;
+      animation: balloonfly-01 12s infinite;
+    }
+  }
 `;
 
 export default Technologies;
