@@ -37,3 +37,42 @@ export const featuresData = [
       "content": "we provide one more smart feature supports day & night mode."
     },
   ];
+
+  // Landing page technologies data
+  export const technologiesData = [
+    {
+      "id" : 1,
+      "icon" : "images/t-html-5.png",
+      "name": "Html5"
+    },
+    {
+      "id" : 2,
+      "icon" : "/images/t-css.png",
+      "name": "css3"
+    },
+    {
+      "id" : 3,
+      "icon" : "/images/t-tailwind.png",
+      "name": "Tailwind"
+    },
+    {
+      "id" : 4,
+      "icon" : "/images/t-google-fonts.png",
+      "name": "Google fonts"
+    },
+    {
+      "id" : 5,
+      "icon" : "/images/t-react.png",
+      "name": "React"
+    },
+    {
+      "id" : 6,
+      "icon" : "/images/t-nodejs.png",
+      "name": "Node js"
+    },
+    {
+      "id": 7,
+      "icon" : "/images/t-mongodb.png",
+      "name": "Mongodb"
+    },
+  ]

@@ -2,6 +2,7 @@ import React from 'react';
 import AppHeader from './AppHeader';
 import HeroSection from './HeroSection';
 import Features from './Features';
+import Technologies from './Technologies';
 
 function Landing() {
   return (
@@ -9,6 +10,7 @@ function Landing() {
       <AppHeader />
       <HeroSection />
       <Features />
+      <Technologies />
     </div>
   )
 }
