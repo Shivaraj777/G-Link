@@ -8,7 +8,7 @@ function Technologies() {
       <div className='custom-container'>
 
         {/* Section header */}
-        <div className='flex items-start justify-center'>
+        <div className='flex items-start justify-center' data-aos='fade-up' data-aos-delay='200'>
           <div className='section-header text-center'>
             <h5>POWERFUL</h5>
             <h2 className='capitalize'>Technology Used</h2>
@@ -18,8 +18,8 @@ function Technologies() {
         {/* Technologies list */}
         <div className='technologies-list'>
           <ul>
-            {technologiesData.map((technology) => (
-              <li key={technology.id}>
+            {technologiesData.map((technology, index) => (
+              <li key={technology.id} data-aos='fade-up' data-aos-delay={(index+1) * 100}>
                 <div className='flex flex-col justify-center items-center p-8'>
                   <img src={technology.icon} alt='technology-img' />
                   <h5 className='mt-5'>{technology.name}</h5>
