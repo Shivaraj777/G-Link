@@ -1,5 +1,6 @@
 import React from 'react';
 import Landing from '../components/Landing';
+import DefaultLayoutHoc from '../layout/DefaultLayoutHoc';
 
 function HomePage() {
   return (
@@ -9,4 +10,4 @@ function HomePage() {
   )
 }
 
-export default HomePage;
+export default DefaultLayoutHoc(HomePage);

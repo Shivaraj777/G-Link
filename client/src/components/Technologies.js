@@ -37,13 +37,13 @@ function Technologies() {
         </div>
 
         <div className='shape-2'>
-          <div style={{width: '200px'}}>
+          <div style={{width: '800px'}}>
             <img width='800px' src='/images/circle-fill.png' alt='circle-fill-img' />
           </div>
         </div>
 
         <div className='shape-3'>
-          <div style={{width: '150px'}}>
+          <div style={{width: '120px'}}>
             <img width='800px' src='/images/rect.png' alt='rectangle-img' />
           </div>
         </div>
@@ -155,17 +155,28 @@ const StyledTechnologies = styled.section`
     }
 
     .shape-4 {
-      bottom: 0%;
+      bottom: 1%;
       left: 20%;
       transition: all 0.5s;
-      animation: balloonfly-02 12s infinite;
+      // animation: balloonfly-02 12s infinite;
     }
 
     .shape-5 {
-      bottom: 0%;
+      bottom: 1%;
       right: 20%;
       transition: all 0.5s;
-      animation: balloonfly-01 12s infinite;
+      // animation: balloonfly-01 12s infinite;
+    }
+  }
+
+  // media queries
+  @media only screen and (min-width: 1680px){
+    .custom-container{
+      max-width: 1450px;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
     }
   }
 `;

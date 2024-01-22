@@ -1,7 +1,7 @@
 import React from 'react';
 
 // default wrapper component
-function DefaultLayoutHoc() {
+function DefaultLayoutHoc(Components) {
   return ({...props}) => {
     return (
       <div className='relative w-full overflow-x-hidden'>
