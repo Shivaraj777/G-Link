@@ -3,6 +3,7 @@ import AppHeader from './AppHeader';
 import HeroSection from './HeroSection';
 import Features from './Features';
 import Technologies from './Technologies';
+import Contact from './Contact';
 
 function Landing() {
   return (
@@ -11,6 +12,7 @@ function Landing() {
       <HeroSection />
       <Features />
       <Technologies />
+      <Contact />
     </div>
   )
 }
