@@ -78,7 +78,7 @@ const StyledHeroSection = styled.section`
 
   .hero-section-data{
     margin: 0 2rem;
-    .higlight{
+    .highlight{
       color: #1c77ed;
     }
 
