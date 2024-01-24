@@ -4,6 +4,7 @@ import HeroSection from './HeroSection';
 import Features from './Features';
 import Technologies from './Technologies';
 import Contact from './Contact';
+import Footer from './Footer';
 
 function Landing() {
   return (
@@ -13,6 +14,7 @@ function Landing() {
       <Features />
       <Technologies />
       <Contact />
+      <Footer />
     </div>
   )
 }
