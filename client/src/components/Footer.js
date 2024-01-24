@@ -18,7 +18,7 @@ function Footer() {
         <div className='footer-block flex flex-col flex-wrap justify-center'>
           {/* logo */}
           <div className='logo-footer-content'>
-            <div className='logo flex justify-center items-center' data-aos='fade-up' data-aos-delay='100'>
+            <div className='logo flex justify-center items-center' /*data-aos='fade-up' data-aos-delay='100'*/>
               <a href='/'>
                 <img src='images/chat.png' alt='logo' />
               </a>
@@ -27,11 +27,18 @@ function Footer() {
 
           {/* Footer section links */}
           <div className='links'>
-            <div className='footer-content' data-aos='fade-up'>
+            <div className='footer-content' /*data-aos='fade-up'*/>
               <ul>
                 {footerData.map((data) => (
-                  <li data-aos='fade-up' data-aos-delay={data.delay}>
-                    <Link to={data.path} className='navlink'>{data.name}</Link>
+                  <li /*data-aos='fade-up' data-aos-delay={data.delay}*/>
+                    <Link 
+                      to={data.path} 
+                      smooth={true}
+                      duration={500}
+                      className='navlink'
+                    >
+                      {data.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -42,7 +49,7 @@ function Footer() {
           <div className='links'>
             <div className='social-links'>
               <ul>
-                <li data-aos='fade-up' data-aos-delay='900'>
+                <li /*data-aos='fade-up' data-aos-delay='900'*/>
                   <a href='https://github.com/Shivaraj777/G-Link' title='github'>
                     <BsGithub />
                   </a>
