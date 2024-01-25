@@ -5,6 +5,7 @@ import Features from './Features';
 import Technologies from './Technologies';
 import Contact from './Contact';
 import Footer from './Footer';
+import ScrollToTopWizard from './ScrollToTopWizard';
 
 function Landing() {
   return (
@@ -15,6 +16,7 @@ function Landing() {
       <Technologies />
       <Contact />
       <Footer />
+      <ScrollToTopWizard />
     </div>
   )
 }
