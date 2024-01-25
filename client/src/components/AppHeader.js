@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from './Navbar';
 
 function AppHeader() {
+  const [header, setHeader] = useState(false); // state to manage/update header style
+
+  // chnage header background
+  const changeBackground = () => {
+    if(window.scrollY >= 80){
+      setHeader(true);
+    }else{
+      setHeader(false);
+    }
+  }
+
+  // add event listener
+  window.addEventListener('scroll', changeBackground);
+  
   return (
     <Header className='w-full flex items-center'>
-      <div className='header flex justify-between items-center w-full'>
+      <div className={header ? 'header active flex justify-between items-center w-full' : 'header flex justify-between items-center w-full'}>
         <div className='hero-section-logo flex justify-start items-center'>
           <img src='./images/chat.png' alt='G-Link-logo' loading='lazy' className='logo' />
         </div>
@@ -28,7 +42,25 @@ const Header = styled.header`
 
   .header.active{
     background-color: ${({theme}) => theme.colors.bg2.primary};
-    box-shadoe: 0 0 20px ${({theme}) => theme.colors.boxShadow.primary};
+    box-shadow: 0 0 20px ${({theme}) => theme.colors.boxShadow.primary};
+
+    .navbar-list .navbar-link{
+      color: ${({theme}) => theme.colors.heading};
+      &:hover,
+      &:active{
+        border-bottom: 2px solid ${({theme}) => theme.colors.cyan};;
+        color: ${({theme}) => theme.colors.cyan};
+      }
+
+      .button{
+        color: ${({theme}) => theme.colors.heading};
+        border: solid 2px  ${({theme}) => theme.colors.heading};
+        &:hover{
+          color: ${({theme}) => theme.colors.cyan};
+          border: solid 2px  ${({theme}) => theme.colors.cyan};
+        }
+      }
+    }
   }
 
   .hero-section-logo{
@@ -41,6 +73,15 @@ const Header = styled.header`
   @media(max-width: 1138px){
     .header{
       background-color: ${({theme}) => theme.colors.bg2.primary};
+
+      .navbar-list .navbar-link{
+        color: ${({theme}) => theme.colors.heading};
+
+        .button{
+          color: ${({theme}) => theme.colors.heading};
+          border-color: ${({theme}) => theme.colors.heading};
+        }
+      }
     }
   }
 `;

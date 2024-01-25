@@ -76,7 +76,7 @@ const NavB = styled.nav`
       text-align: center;
       font-size: 1.2rem;
       line-height: 1.5rem;
-      color: ${({theme}) => theme.colors.heading};
+      color: ${({theme}) => theme.colors.white};
       padding: 0.5rem 0;
       cursor: pointer;
       text-decoration: none;
@@ -90,25 +90,35 @@ const NavB = styled.nav`
 
       &:hover,
       &:active{
-        color: ${({theme}) => theme.colors.cyan};
+        color: ${({theme}) => theme.colors.white};
         transition: color 0.3s linear;
-        border-bottom: 2px solid ${({theme}) => theme.colors.cyan}
+        border-bottom: 2px solid ${({theme}) => theme.colors.white}
       }
 
       .button{
         font-size: 1.1rem;
         width: 100px;
         border-radius: 20px;
-        color: ${({theme}) => theme.colors.heading};
-        border: 2px solid ${({theme}) => theme.colors.heading};
-        &:hover {
-          color: ${({ theme }) => theme.colors.cyan};
-          border: solid 2px ${({ theme }) => theme.colors.cyan};
+        color: ${({theme}) => theme.colors.white};
+        border: 2px solid ${({theme}) => theme.colors.white};
+        &:hover{
+          color: ${({theme}) => theme.colors.white};
+          border: solid 2px ${({theme}) => theme.colors.white};
         }
       }
     }
   }
 
+  .navbar-list li{
+    &:nth-child(5),
+    &:nth-child(6){
+      .navbar-link{
+        &:hover{
+          border: none;
+        }
+      }
+    }
+  }
 
   // mobile menu styles
   .mobile-navbar-btn{
