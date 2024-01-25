@@ -29,8 +29,8 @@ function Footer() {
           <div className='links'>
             <div className='footer-content' /*data-aos='fade-up'*/>
               <ul>
-                {footerData.map((data) => (
-                  <li /*data-aos='fade-up' data-aos-delay={data.delay}*/>
+                {footerData.map((data, index) => (
+                  <li key={index} /*data-aos='fade-up' data-aos-delay={data.delay}*/>
                     <Link 
                       to={data.path} 
                       smooth={true}
