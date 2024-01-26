@@ -9,7 +9,7 @@ import ScrollToTopWizard from './ScrollToTopWizard';
 
 function Landing() {
   return (
-    <div>
+    <>
       <AppHeader />
       <HeroSection />
       <Features />
@@ -17,7 +17,7 @@ function Landing() {
       <Contact />
       <Footer />
       <ScrollToTopWizard />
-    </div>
+    </>
   )
 }
 
