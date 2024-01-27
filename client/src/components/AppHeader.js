@@ -61,6 +61,19 @@ const Header = styled.header`
         }
       }
     }
+
+    .navbar-list li{
+      &:nth-child(5),
+      &:nth-child(6),
+      &:nth-child(7){
+        .navbar-link{
+          &:hover,
+          &:active{
+            border-bottom: none;
+          }
+        }
+      }
+    }
   }
   
   .logo{

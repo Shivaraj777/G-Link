@@ -126,7 +126,7 @@ const StyledFooter = styled.section`
           padding: 0 1rem;
           cursor: pointer;
 
-          .navLink{
+          .navlink{
             padding: 1rem 0;
             font-size: 1.2rem;
             color: ${({theme}) => theme.colors.heading};

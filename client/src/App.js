@@ -5,6 +5,7 @@ import AOS from 'aos';
 import "aos/dist/aos.css";
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { GlobalStyle } from './styles/GlobalStyles';
 
 function App() {
   // access store state using useSelector hook
@@ -128,6 +129,7 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
+        <GlobalStyle />
         <HomePage />
       </ThemeProvider>
     </div>
