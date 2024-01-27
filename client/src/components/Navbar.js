@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-scroll';
 import { Button } from '../styles/Button';
 import { CgMenu, CgClose } from 'react-icons/cg';
+import Toggler from './Toggler';
 
 function Navbar() {
   const navItems = [
@@ -45,6 +46,12 @@ function Navbar() {
               <Button className='button'onClick={() => setOpenMenu(false)}>SignUp</Button>
             </a>
           </li>
+
+          <li>
+            <div className='navbar-link mode-toggler'>
+              <Toggler />
+            </div>
+          </li>
         </ul>
 
         {/* Menu icons */}
@@ -59,6 +66,11 @@ function Navbar() {
             className='mobile-nav-icon close-icon' 
             onClick={() => setOpenMenu(false)} 
           />
+        </div>
+
+        {/* theme toggler for mobile view */}
+        <div className="mobile-navbar-btn ml-10">
+          <Toggler className="mobile-nav-icon" />
         </div>
       </div>
     </NavB>
@@ -81,6 +93,7 @@ const NavB = styled.nav`
       cursor: pointer;
       text-decoration: none;
       text-transform: uppercase;
+      transition: color 0.3s linear;
       font-weight: 500;
 
       &:link,
@@ -107,16 +120,24 @@ const NavB = styled.nav`
         }
       }
     }
+
+    .navbar-link .mode-toggler{
+      font-size: 2rem;
+    }
   }
 
   .navbar-list li{
     &:nth-child(5),
-    &:nth-child(6){
+    &:nth-child(6),
+    &:nth-child(7){
       .navbar-link{
         &:hover{
           border: none;
         }
       }
+    }
+    &:nth-child(7){
+      font-size: 1.5rem;
     }
   }
 
@@ -128,6 +149,9 @@ const NavB = styled.nav`
     border: none;
   }
   .mobile-nav-icon[name='close-outline']{
+    display: none;
+  }
+  .close-icon{
     display: none;
   }
 
@@ -164,7 +188,7 @@ const NavB = styled.nav`
       opacity: 0;
       transform: translateX(100%);
       background-color: ${({theme}) => theme.colors.bg2.primary};
-      visisbility hidden;
+      visibility hidden;
 
       .button{
         width: 150px !important;
@@ -181,7 +205,7 @@ const NavB = styled.nav`
       visibility: visible;
       opacity: 1;
       transform: translateX(0);
-      z-index: 9999;
+      z-index: 999;
       transform-origin: right;
       width: 100vw;
 
@@ -192,6 +216,10 @@ const NavB = styled.nav`
           color: ${({theme}) => theme.colors.cyan} !important;
           border-bottom: none !important;
         }
+      }
+
+      .mode-toggler{
+        display: none;
       }
     }
   }

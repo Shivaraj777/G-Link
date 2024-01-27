@@ -20,7 +20,7 @@ function AppHeader() {
   return (
     <Header className='w-full flex items-center'>
       <div className={header ? 'header active flex justify-between items-center w-full' : 'header flex justify-between items-center w-full'}>
-        <div className='hero-section-logo flex justify-start items-center'>
+        <div className='hero-section-logo flex justify-center items-center'>
           <img src='./images/chat.png' alt='G-Link-logo' loading='lazy' className='logo' />
         </div>
         <Navbar />
@@ -62,10 +62,7 @@ const Header = styled.header`
       }
     }
   }
-
-  .hero-section-logo{
-    width: 100%;
-  }
+  
   .logo{
     height: 4rem;
   }

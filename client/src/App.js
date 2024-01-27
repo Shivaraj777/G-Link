@@ -37,6 +37,12 @@ function App() {
         secondary: "rgba(29 ,29, 29, .8)",
       },
 
+      rgb: {
+        secondary: "78,172,109",
+        cyan: "28,157,234",
+        heading: "0,0,0",
+      },
+
       bg: {
         primary: "#fff",
         secondary: "#eff7fe",
@@ -81,6 +87,12 @@ function App() {
       text: {
         primary: "#212529",
         secondary: "#8f9198",
+      },
+
+      rgb: {
+        secondary: "78,172,109",
+        cyan: "28,157,234",
+        heading: "255,255,255",
       },
 
       bg: {

@@ -70,6 +70,7 @@ const StyledHeroSection = styled.section`
   height: 100vh;
   text-align: left;
   overflow: hidden;
+  background-color: ${({theme}) => theme.colors.bg2.secondary};
 
   .custom-container{
     position: relative;
@@ -88,6 +89,7 @@ const StyledHeroSection = styled.section`
       margin-bottom: 17px;
       line-height: 1.2;
       max-width: 680px;
+      color: ${({theme}) => theme.colors.heading};
     }
     p {
       font-size: calc(1.2 * (1rem + 3 * (100vw - 320px) / 1600));
@@ -96,7 +98,7 @@ const StyledHeroSection = styled.section`
       font-weight: 600;
       font-family: Roboto, sans-serif;
       line-height: 1.8;
-      color: rgba(0, 0, 0, 0.5);
+      color: rgba(${({theme}) => theme.colors.rgb.heading}, 0.5);
     }
 
     .button {

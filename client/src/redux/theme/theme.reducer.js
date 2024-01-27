@@ -2,7 +2,7 @@ import { TOGGLE_DARKTHEME } from './theme.action';
 
 // set initial state
 const initialState = {
-  darkThemeEnabled: localStorage.getItem('DARK_THEME') || false
+  darkThemeEnabled: JSON.parse(localStorage.getItem('DARK_THEME')) || false
 }
 
 /* Theme reducer - return updated theme state */
