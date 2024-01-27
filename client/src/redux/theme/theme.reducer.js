@@ -1,4 +1,4 @@
-export { TOGGLE_DARKTHEME } from './theme.action';
+import { TOGGLE_DARKTHEME } from './theme.action';
 
 // set initial state
 const initialState = {
@@ -11,11 +11,13 @@ const themeReducer = (state = initialState, action) => {
     case TOGGLE_DARKTHEME:
       const mode = !state.darkThemeEnabled;
       localStorage.setItem('DARK_THEME', mode);
-
       return {
         ...state,
         darkThemeEnabled: mode
       }
+
+    default:
+      return state;
   }
 }
 
