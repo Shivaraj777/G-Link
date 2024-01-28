@@ -6,6 +6,8 @@ import "aos/dist/aos.css";
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { GlobalStyle } from './styles/GlobalStyles';
+import { Routes, Route } from 'react-router-dom';
+import AuthPage from './pages/AuthPage';
 
 function App() {
   // access store state using useSelector hook
@@ -130,7 +132,13 @@ function App() {
     <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
       <GlobalStyle />
       <div className='App'>
-        <HomePage />
+        <Routes>
+          <Route exact path='/' element={<HomePage />} />
+          <Route path='/auth' element={<AuthPage />}>
+            <Route path='' />
+            <Route path='sign-up' />
+          </Route>
+        </Routes>
       </div>
     </ThemeProvider>
   );
