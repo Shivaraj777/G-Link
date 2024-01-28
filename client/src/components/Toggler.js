@@ -30,7 +30,7 @@ const StyledToggler = styled.div`
   cursor: pointer;
 
   .icon{
-    font-size: 3.2rem;
+    font-size: 2.3rem;
   }
 
   @media(max-width: 980px){
