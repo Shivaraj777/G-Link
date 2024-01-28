@@ -4,6 +4,7 @@ import { Link } from 'react-scroll';
 import { Button } from '../styles/Button';
 import { CgMenu, CgClose } from 'react-icons/cg';
 import Toggler from './Toggler';
+import { NavLink } from 'react-router-dom';
 
 function Navbar() {
   const navItems = [
@@ -36,15 +37,15 @@ function Navbar() {
           }
 
           <li>
-            <a href='/' className='navbar-link'>
+            <NavLink to='/auth' className='navbar-link'>
               <Button className='button' onClick={() => setOpenMenu(false)}>Login</Button>
-            </a>
+            </NavLink>
           </li>
 
           <li>
-            <a href='/' className='navbar-link'>
+            <NavLink to='/auth' className='navbar-link'>
               <Button className='button'onClick={() => setOpenMenu(false)}>SignUp</Button>
-            </a>
+            </NavLink>
           </li>
 
           <li>
