@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../../styles/Button';
+import ToggleShowPassword from '../ToggleShowPassword';
 
 function LoginForm() {
+  const [EyeIcon, InputType] = ToggleShowPassword(); // get password visibility details
+
   return (
     <>
       <div className='auth-page-content col-span-2 flex flex-col justify-center items-center'>
@@ -42,12 +45,13 @@ function LoginForm() {
                   <span className='input-wrapper'>
                     <input
                       className="input input-md h-11"
-                      type='password'
+                      type={InputType}
                       name="password"
                       autoComplete="off"
                       placeholder="Password"
                       style={{ paddingRight: "2.25rem" }}
                     />
+                    {EyeIcon}
                   </span>
                 </div>
               </div>
