@@ -127,12 +127,12 @@ function App() {
 
 
   return (
-    <div className="App">
-      <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
-        <GlobalStyle />
+    <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
+      <GlobalStyle />
+      <div className='App'>
         <HomePage />
-      </ThemeProvider>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
