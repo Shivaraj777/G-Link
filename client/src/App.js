@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { GlobalStyle } from './styles/GlobalStyles';
 import { Routes, Route } from 'react-router-dom';
 import AuthPage from './pages/AuthPage';
+import Login from './components/auth/Login';
 
 function App() {
   // access store state using useSelector hook
@@ -60,6 +61,12 @@ function App() {
       },
       boxShadow: {
         primary: "rgba(28, 157, 234, 0.2)",
+      },
+
+      btn: {
+        secondary: "22 163 74",
+        danger: "255, 78, 43",
+        light: "#f6f6f9",
       },
 
       hr: "#ffffff",
@@ -115,6 +122,12 @@ function App() {
         primary: "rgba(1, 201 ,245, 0.4)",
       },
 
+      btn: {
+        secondary: "22 163 74",
+        danger: "255, 78, 43",
+        light: "#25262c",
+      },
+
       hr: "#ffffff",
       border: "65, 66, 72",
       img_border: "31, 41, 55",
@@ -135,7 +148,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<HomePage />} />
           <Route path='/auth' element={<AuthPage />}>
-            <Route path='' />
+            <Route path='' element={<Login />} />
             <Route path='sign-up' />
           </Route>
         </Routes>
