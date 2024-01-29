@@ -43,7 +43,7 @@ function Navbar() {
           </li>
 
           <li>
-            <NavLink to='/auth' className='navbar-link'>
+            <NavLink to='/auth/sign-up' className='navbar-link'>
               <Button className='button'onClick={() => setOpenMenu(false)}>SignUp</Button>
             </NavLink>
           </li>
