@@ -29,3 +29,9 @@
     position: relative;
     margin-bottom: 1.75rem;
 }
+
+.eye-icon-fill,
+.eye-icon-line{
+    color: rgb(22 163 74);
+    outline-color: rgb(22 163 74);
+}
