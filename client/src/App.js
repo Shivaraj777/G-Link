@@ -9,6 +9,7 @@ import { GlobalStyle } from './styles/GlobalStyles';
 import { Routes, Route } from 'react-router-dom';
 import AuthPage from './pages/AuthPage';
 import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
 
 function App() {
   // access store state using useSelector hook
@@ -149,7 +150,7 @@ function App() {
           <Route exact path='/' element={<HomePage />} />
           <Route path='/auth' element={<AuthPage />}>
             <Route path='' element={<Login />} />
-            <Route path='sign-up' />
+            <Route path='sign-up' element={<Signup />} />
           </Route>
         </Routes>
       </div>

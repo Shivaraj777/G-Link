@@ -2,52 +2,57 @@ import React from 'react';
 import styled from 'styled-components';
 import Toggler from '../Toggler';
 import { NavLink } from 'react-router-dom';
-import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
-function Login() {
+function Signup() {
   return (
-    <StyledLogin className='login-page-bg'>
+    <StyledSignup className='login-page-bg'>
       <div className='toggle-icon'>
         <Toggler />
       </div>
 
-      {/* Login page header section */}
-      <div className='relative h-full flex justify-center items-center'>
-        <div className='h-full py-6'>
+      {/* signup page header section */}
+      <div className='h-full flex justify-center items-center'>
+        <div className='py-6'>
           <div className='px-8 flex flex-col justify-center items-center'>
-            <div className='logo' style={{ width: 'auto'}}>
+            <div className='logo' style={{ width: 'auto' }}>
               <img src='/images/chat.png' alt='app-logo' />
             </div>
 
-            {/* Login form */}
-            <LoginForm />
+            {/* Signup form */}
+            <SignupForm />
 
-            {/* Login page footer-section */}
-            <div className='mt-6 text-center'>
+            {/* signup page footer section */}
+            <div className='mt-2 text-center'>
               <p>
-                <span>Don't have an account?</span>
-                <NavLink to='/auth/sign-up' className='text-green-500 font-bold hover:underline'>
-                  Sign Up
+                {''}
+                <span>Already have an account?</span>
+                <NavLink to='/auth' className='text-green-500 font-bold  hover:underline'>
+                  {''}
+                  Sign In
                 </NavLink>
               </p>
-              <p>© {new Date().getFullYear()} G-Link created with ❤️ </p>
+              <p>© {new Date().getFullYear()} G-Link created with ❤️</p>
             </div>
           </div>
         </div>
       </div>
-    </StyledLogin>
+    </StyledSignup>
   )
 }
 
 // styled component
-const StyledLogin = styled.section`
+const StyledSignup = styled.section`
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: auto;
   background-color: ${({theme}) => theme.colors.bg.secondary};
+
+  .logo{
+    img{
+      height: 50px;
+    }
+  }
 
   // dark theme toggle-icon
   .toggle-icon{
@@ -57,20 +62,17 @@ const StyledLogin = styled.section`
     margin-right: 20px;
     display: flex;
     width: 100vw;
-    font-size: 2rem;
     justify-content: flex-end;
   }
 
-  .logo{
-    img{
-      height: 50px;
-    }
-  }
-
   .auth-page-content{
-    border-radius: 16px;
-    margin: 24px 0;
+    height: calc(100% - 48px);
+    margin: 24px;
     background-color: ${({theme}) => theme.colors.bg.primary};
+
+    .card{
+      border-radius: 0.25rem;
+    }
 
     a{
       color: ${({theme}) => theme.colors.text.secondary};
@@ -79,7 +81,7 @@ const StyledLogin = styled.section`
     input{
       background-color: ${({theme}) => theme.colors.btn.light};
       border-color: ${({theme}) => theme.colors.border};
-      &:focus {
+      &:focus{
         background-color: ${({theme}) => theme.colors.btn.light};
         outline-color: ${({theme}) => theme.colors.btn.light};
         border-color: ${({theme}) => theme.colors.border};
@@ -113,4 +115,4 @@ const StyledLogin = styled.section`
   }
 `;
 
-export default Login;
+export default Signup;
