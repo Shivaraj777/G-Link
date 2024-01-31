@@ -1,7 +1,7 @@
 import { ACCESS_TOKEN_KEY, getFormBody, getItemsFromLocalStorage } from "../utils"
 
 // global fetch function to make api calls
-export const customfetch = async (url, {body, ...customConfig}) => {
+export const customFetch = async (url, {body, ...customConfig}) => {
   const token = getItemsFromLocalStorage(ACCESS_TOKEN_KEY);
 
   // define the data to be accepted and sent by the application
