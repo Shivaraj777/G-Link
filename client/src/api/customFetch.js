@@ -44,6 +44,7 @@ export const customFetch = async (url, {body, ...customConfig}) => {
   }catch(err){
     console.log(`Error: ${err}`);
     return {
+      error: err,
       message: err.message,
       success: false
     }
