@@ -3,7 +3,8 @@ import ToggleShowPassword from '../ToggleShowPassword';
 import { Button } from '../../styles/Button';
 
 function SignupForm() {
-  const [EyeIcon, InputType] = ToggleShowPassword(); // get password visibility details
+  const [EyeIcon1, InputType1] = ToggleShowPassword(); // get password visibility details
+  const [EyeIcon2, InputType2] = ToggleShowPassword();
 
   return (
     <div className='auth-page-content col-span-2 flex flex-col justify-center items-center'>
@@ -66,13 +67,13 @@ function SignupForm() {
               <span className='input-wrapper'>
                 <input
                   className='input input-md h-11'
-                  type={InputType}
+                  type={InputType1}
                   name='password'
                   autoComplete='off'
                   placeholder='Password'
                   style={{ paddingRight: '2.25rem' }}
                 />
-                {EyeIcon}
+                {EyeIcon1}
               </span>
             </div>
 
@@ -81,13 +82,13 @@ function SignupForm() {
               <span className='input-wrapper'>
                 <input
                   className='input input-md h-11'
-                  type={InputType}
+                  type={InputType2}
                   name='confirm-password'
                   autoComplete='off'
                   placeholder='Confirm Password'
                   style={{ paddingRight: '2.25rem' }}
                 />
-                {EyeIcon}
+                {EyeIcon2}
               </span>
             </div>
 
