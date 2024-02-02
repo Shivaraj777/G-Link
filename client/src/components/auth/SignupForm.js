@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ToggleShowPassword from '../ToggleShowPassword';
 import { Button } from '../../styles/Button';
 
 function SignupForm() {
   const [EyeIcon1, InputType1] = ToggleShowPassword(); // get password visibility details
   const [EyeIcon2, InputType2] = ToggleShowPassword();
+
+  // state to manage form data
+  const [signupData, setSignupData] = useState({
+    name: '',
+    email: '',
+    contact: '',
+    password: '',
+    confirm_password: ''
+  });
+
+  // handle form data change
+  const handleChange = (e) => {
+    setSignupData({ ...signupData, [e.target.name]: e.target.value });
+  }
 
   return (
     <div className='auth-page-content col-span-2 flex flex-col justify-center items-center'>
@@ -30,6 +44,8 @@ function SignupForm() {
                   autoComplete='off'
                   placeholder='Name'
                   required
+                  value={signupData.name}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -44,6 +60,8 @@ function SignupForm() {
                   autoComplete='off'
                   placeholder='Email'
                   required
+                  value={signupData.email}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -58,6 +76,8 @@ function SignupForm() {
                   autoComplete='off'
                   placeholder='+91-phone no..'
                   required
+                  value={signupData.mobile}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -72,6 +92,8 @@ function SignupForm() {
                   autoComplete='off'
                   placeholder='Password'
                   style={{ paddingRight: '2.25rem' }}
+                  value={signupData.password}
+                  onChange={handleChange}
                 />
                 {EyeIcon1}
               </span>
@@ -83,10 +105,12 @@ function SignupForm() {
                 <input
                   className='input input-md h-11'
                   type={InputType2}
-                  name='confirm-password'
+                  name='confirm_password'
                   autoComplete='off'
                   placeholder='Confirm Password'
                   style={{ paddingRight: '2.25rem' }}
+                  value={signupData.confirmPassword}
+                  onChange={handleChange}
                 />
                 {EyeIcon2}
               </span>
