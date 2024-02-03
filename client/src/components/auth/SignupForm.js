@@ -3,6 +3,8 @@ import ToggleShowPassword from '../ToggleShowPassword';
 import { Button } from '../../styles/Button';
 import { useDispatch } from 'react-redux';
 import { signup } from '../../redux/auth/auth.action';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignupForm() {
   const [EyeIcon1, InputType1] = ToggleShowPassword(); // get password visibility details
@@ -31,16 +33,21 @@ function SignupForm() {
     setLoading(true);
 
     if(signupData.password !== signupData.confirm_password){
-      console.log('Password and Confirm Password do not match. Please try again');
+      toast.error('Password and Confirm Password do not match. Please try again', {
+        autoClose: 2000,
+      });
+      setLoading(false);
       return;
     }
 
     if(signupData.name && signupData.email && signupData.password && signupData.confirm_password){
       dispatch(signup(signupData));
-      setLoading(false);
+      // setLoading(false);
     }else{
       setLoading(false);
-      console.log('Please fill all the required fields');
+      toast.error('Please fill all the required fields', {
+        autoClose: 2000
+      });
       return;
     }
   }
@@ -145,12 +152,14 @@ function SignupForm() {
             <Button 
               className='button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full'
               onClick={handleUserSignup}
+              disabled={loading}
             >
               { loading ? 'Signing Up...' : 'Register' }
             </Button>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   )
 }
