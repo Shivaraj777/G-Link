@@ -3,6 +3,7 @@ const express = require('express');
 const db = require('./config/mongoose');
 const paspport = require('passport');
 const passwortJWT = require('./config/passport-jwt-strategy');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.port || 8000;
@@ -12,6 +13,9 @@ const chatServer = require('http').createServer(app);
 const chatSockets = require('./config/chat_sockets').chatSockets(chatServer); 
 chatServer.listen(3000);
 console.log('Chat server is listening on port 3000');
+
+// enable CORS
+app.use(cors());
 
 //middleware to parse the form data
 app.use(express.urlencoded({extended: true}));
