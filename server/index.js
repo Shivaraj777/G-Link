@@ -5,7 +5,7 @@ const paspport = require('passport');
 const passwortJWT = require('./config/passport-jwt-strategy');
 
 const app = express();
-const port = 8000;
+const port = process.env.port || 8000;
 
 // create chat server using express app
 const chatServer = require('http').createServer(app);

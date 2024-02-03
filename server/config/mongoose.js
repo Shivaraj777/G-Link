@@ -1,8 +1,9 @@
 // imports
 const mongoose = require('mongoose');
+const env = require('./environment');
 
 // establish connection to the database
-mongoose.connect('mongodb://127.0.0.1/g-link_development');
+mongoose.connect(env.mongodb_url);
 const db = mongoose.connection;
 
 // if error

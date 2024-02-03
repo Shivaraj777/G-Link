@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const utils = require('../../../utils');
 const usersMailer = require('../../../mailers/users_mailer');
 const cloudinary = require('../../../config/cloudinary');
+const env = require('../../../config/environment');
 
 // action to create/register user
 module.exports.createUser = async function(req, res){
@@ -49,7 +50,7 @@ module.exports.createUser = async function(req, res){
         if(user){
             // send verification email
             const token = utils.generateToken(user, '120s');
-            const url = `http://localhost:8000/verify-email/${token}`;
+            const url = `${env.client_fqdn}/verify-email/${token}`;
             usersMailer.verifyAccount(user, url);
 
             // console.log('User registered successfully');
@@ -212,7 +213,7 @@ module.exports.resendVerificationEmail = async (req, res) => {
 
         // if user is found send verification email
         const token = utils.generateToken(user, '120s');
-        const url = `http://localhost:8000/verify-email/${token}`;
+        const url = `${env.client_fqdn}/verify-email/${token}`;
         usersMailer.verifyAccount(user, url); 
 
         return res.status(200).json({
@@ -233,7 +234,7 @@ module.exports.verifyEmail = async function(req, res){
     try{
         // decode the token
         const {token} = req.body;
-        const decodedJWT = jwt.verify(token, 'g-link');
+        const decodedJWT = jwt.verify(token, env.jwt_secret_key);
         // console.log(decodedJWT);
 
         // find the user
@@ -284,7 +285,7 @@ module.exports.forgotPassword = async function(req, res){
 
         // send email to reset password
         const token = utils.generateToken(user, '300s');
-        const passwordResetURL = `http://localhost:8000/reset-password/${token}`;
+        const passwordResetURL = `${env.client_fqdn}/reset-password/${token}`;
         usersMailer.forgotPasswordMail(user, passwordResetURL);
 
         return res.status(200).json({
@@ -306,7 +307,7 @@ module.exports.resetPassword = async function(req, res){
         const {token, newPassword} = req.body;
 
         // decode the token and find the user
-        const decodedJWT = jwt.verify(token, 'g-link');
+        const decodedJWT = jwt.verify(token, env.jwt_secret_key);
         let user = await User.findById(decodedJWT._id);
 
         if(!user){

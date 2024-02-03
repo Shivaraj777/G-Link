@@ -3,11 +3,12 @@ const passport = require('passport');
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const User = require('../model/user');
+const env = require('./environment');
 
 // setup configurations behavior for jwt
 let opts = {
     jwtFromRequest:  ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'g-link'
+    secretOrKey: env.jwt_secret_key
 }
 
 // configure passport to use jwt-strategy
