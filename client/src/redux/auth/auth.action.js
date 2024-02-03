@@ -7,7 +7,7 @@ export const ERROR = 'ERROR';
 
 
 // signup action creator
-export const signup = async (newuser) => {
+export const signup = (newuser) => async () => {
   const response = await userSignup(newuser);
 
   if(response.success){
