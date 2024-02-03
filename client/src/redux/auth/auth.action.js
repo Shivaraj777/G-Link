@@ -3,6 +3,7 @@ import { ACCESS_TOKEN_KEY, setItemsInLocalStorage } from '../../utils';
 
 // action types
 export const SIGN_UP = 'SIGN_UP';
+export const ERROR = 'ERROR';
 
 
 // signup action creator
@@ -17,7 +18,7 @@ export const signup = async (newuser) => {
     }
   }else{
     return {
-      type: 'ERROR',
+      type: ERROR,
       payload: response.error
     }
   }

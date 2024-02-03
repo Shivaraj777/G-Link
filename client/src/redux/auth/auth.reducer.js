@@ -1,4 +1,4 @@
-import { SIGN_UP } from "./auth.action";
+import { ERROR, SIGN_UP } from "./auth.action";
 
 // set initial state
 const initialState = {};

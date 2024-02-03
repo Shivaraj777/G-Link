@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import ToggleShowPassword from '../ToggleShowPassword';
 import { Button } from '../../styles/Button';
+import { useDispatch } from 'react-redux';
+import { signup } from '../../redux/auth/auth.action';
 
 function SignupForm() {
   const [EyeIcon1, InputType1] = ToggleShowPassword(); // get password visibility details
   const [EyeIcon2, InputType2] = ToggleShowPassword();
+
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch(); // get dispatch function from store
 
   // state to manage form data
   const [signupData, setSignupData] = useState({
@@ -19,6 +24,27 @@ function SignupForm() {
   const handleChange = (e) => {
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
   }
+
+
+  // handle user signup
+  const handleUserSignup = () => {
+    setLoading(true);
+
+    if(signupData.password !== signupData.confirm_password){
+      console.log('Password and Confirm Password do not match. Please try again');
+      return;
+    }
+
+    if(signupData.name && signupData.email && signupData.password && signupData.confirm_password){
+      dispatch(signup(signupData));
+      setLoading(false);
+    }else{
+      setLoading(false);
+      console.log('Please fill all the required fields');
+      return;
+    }
+  }
+
 
   return (
     <div className='auth-page-content col-span-2 flex flex-col justify-center items-center'>
@@ -116,8 +142,11 @@ function SignupForm() {
               </span>
             </div>
 
-            <Button className='button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full'>
-              Register
+            <Button 
+              className='button bg-green-600 hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full'
+              onClick={handleUserSignup}
+            >
+              { loading ? 'Signing Up...' : 'Register' }
             </Button>
           </div>
         </div>
