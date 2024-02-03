@@ -44,7 +44,7 @@ module.exports.createUser = async function(req, res){
         }
 
         // create user
-        const user = await User.create(req.body);
+        const user = await User.create({...req.body, contact: parseInt(contact, 10)});
 
         // if user is created successfully
         if(user){
