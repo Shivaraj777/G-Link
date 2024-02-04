@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../../styles/Button';
 import ToggleShowPassword from '../ToggleShowPassword';
 
 function LoginForm() {
   const [EyeIcon, InputType] = ToggleShowPassword(); // get password visibility details
+
+  // login form state
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: ''
+  });
+
+  // handle form input state change
+  const handleChange = (e) => {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  } 
 
   return (
     <>
@@ -28,6 +39,8 @@ function LoginForm() {
                     name="email"
                     autoComplete="off"
                     placeholder="Email"
+                    value={loginData.email}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -50,6 +63,8 @@ function LoginForm() {
                       autoComplete="off"
                       placeholder="Password"
                       style={{ paddingRight: "2.25rem" }}
+                      value={loginData.password}
+                      onChange={handleChange}
                     />
                     {EyeIcon}
                   </span>
