@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ToggleShowPassword from '../ToggleShowPassword';
 import { Button } from '../../styles/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../../redux/auth/auth.action';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,6 +13,9 @@ function SignupForm() {
 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch(); // get dispatch function from store
+  const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth); // get global auth state
+  console.log(auth);
 
   // state to manage form data
   const [signupData, setSignupData] = useState({
@@ -26,6 +30,27 @@ function SignupForm() {
   const handleChange = (e) => {
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
   }
+
+
+  // handle successfull signup
+  useEffect(() => {
+    if(!auth){
+      return;
+    }
+
+    if(auth.success){
+      setLoading(false);
+      toast.success(auth.message, {
+        autoClose: 2000
+      });
+      navigate('/auth');
+    }else{
+      setLoading(false);
+      toast.error(auth.message, {
+        autoClose: 2000
+      });
+    }
+  }, [auth, navigate]);
 
 
   // handle user signup
@@ -143,7 +168,7 @@ function SignupForm() {
                   autoComplete='off'
                   placeholder='Confirm Password'
                   style={{ paddingRight: '2.25rem' }}
-                  value={signupData.confirmPassword}
+                  value={signupData.confirm_password}
                   onChange={handleChange}
                 />
                 {EyeIcon2}
@@ -155,7 +180,7 @@ function SignupForm() {
               onClick={handleUserSignup}
               disabled={loading}
             >
-              { loading ? 'Signing Up...' : 'Register' }
+              { loading ? 'Registering...' : 'Register' }
             </Button>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { signup as userSignup } from '../../api/authApi';
-import { ACCESS_TOKEN_KEY, setItemsInLocalStorage } from '../../utils';
+// import { ACCESS_TOKEN_KEY, setItemsInLocalStorage } from '../../utils';
 
 // action types
 export const SIGN_UP = 'SIGN_UP';
@@ -7,19 +7,20 @@ export const ERROR = 'ERROR';
 
 
 // signup action creator
-export const signup = (newuser) => async () => {
+export const signup = (newuser) => async (dispatch) => {
   const response = await userSignup(newuser);
 
   if(response.success){
     // setItemsInLocalStorage(ACCESS_TOKEN_KEY, response.data.token);
-    return {
-      type: SIGN_UP,
-      payload: response.data
-    }
+    const payload = {
+      ...response.data.user,
+      message: response.message,
+      success: response.success
+    };
+    // console.log(payload);
+
+    return dispatch({ type: SIGN_UP, payload: payload });
   }else{
-    return {
-      type: ERROR,
-      payload: response.error
-    }
+    return dispatch({ type: ERROR, payload: response.error });
   }
 }
