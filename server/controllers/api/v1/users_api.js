@@ -23,7 +23,7 @@ module.exports.createUser = async function(req, res){
 
         // check if user is already registered
         const emailExists = await User.findOne({ email });
-        const contactExists = await User.findOne({ contact });
+        const contactExists = await User.findOne({ contact: parseInt(contact, 10) });
 
         // if email is already registered
         if(emailExists){
