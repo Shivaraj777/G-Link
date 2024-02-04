@@ -108,6 +108,7 @@ function SignupForm() {
                   name='contact'
                   autoComplete='off'
                   placeholder='+91-phone no..'
+                  pattern='[0-9]{10}'
                   required
                   value={signupData.mobile}
                   onChange={handleChange}

@@ -1,11 +1,12 @@
 // Description: This file contains the urls and constants to make API calls
 
 // site FQDN
-const API_ROOT = 'https://localhost:8000/api/v1';
+// const API_ROOT = 'https://g-link-api.onrender.com/api/v1';
+const API_ROOT = 'http://localhost:8000/api/v1';
 
 // api urls
 export const API_URLs = {
-    signup: () => `${API_ROOT}/user/register`,
+  signup: () => `${API_ROOT}/user/register`,
 }
 
 // G-Link access token

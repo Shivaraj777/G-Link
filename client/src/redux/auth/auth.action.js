@@ -11,7 +11,7 @@ export const signup = (newuser) => async () => {
   const response = await userSignup(newuser);
 
   if(response.success){
-    setItemsInLocalStorage(ACCESS_TOKEN_KEY, response.data.token);
+    // setItemsInLocalStorage(ACCESS_TOKEN_KEY, response.data.token);
     return {
       type: SIGN_UP,
       payload: response.data
