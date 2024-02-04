@@ -4,6 +4,7 @@ import { signup as userSignup } from '../../api/authApi';
 // action types
 export const SIGN_UP = 'SIGN_UP';
 export const ERROR = 'ERROR';
+export const CLEAR_AUTH_STORE = 'CLEAR_AUTH_STORE';
 
 
 // signup action creator
@@ -22,5 +23,15 @@ export const signup = (newuser) => async (dispatch) => {
     return dispatch({ type: SIGN_UP, payload: payload });
   }else{
     return dispatch({ type: ERROR, payload: response.error });
+  }
+}
+
+
+// action to clear auth store
+export const clearAuthStore = () => async (dispatch) => {
+  try{
+    return dispatch({ type: CLEAR_AUTH_STORE, payload: {} });
+  }catch(err){
+    return dispatch({ type: ERROR, payload: err });
   }
 }

@@ -1,4 +1,4 @@
-import { ERROR, SIGN_UP } from "./auth.action";
+import { CLEAR_AUTH_STORE, ERROR, SIGN_UP } from "./auth.action";
 
 // set initial state
 const initialState = {};
@@ -9,6 +9,11 @@ const authReducer = (state = initialState, action) => {
     case SIGN_UP:
       return {
         ...state,
+        ...action.payload
+      }
+
+    case CLEAR_AUTH_STORE:
+      return {
         ...action.payload
       }
 
