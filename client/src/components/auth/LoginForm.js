@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Button } from '../../styles/Button';
 import ToggleShowPassword from '../ToggleShowPassword';
+import { useDispatch, useSelector } from 'react-redux';
+import { signin } from '../../redux/auth/auth.action';
+import { toast } from 'react-toastify';
 
 function LoginForm() {
   const [EyeIcon, InputType] = ToggleShowPassword(); // get password visibility details
+
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   // login form state
   const [loginData, setLoginData] = useState({
@@ -16,6 +24,47 @@ function LoginForm() {
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   } 
+
+
+  // handle post login
+  useEffect(() => {
+    if(!auth){
+      return;
+    }
+
+    if(auth.success){
+      setLoading(false);
+      toast.success(auth.message, {
+        autoClose: 2000
+      });
+
+      navigate('/');
+      // dispatch(clearAuthStore());
+    }else{
+      setLoading(false);
+      toast.error(auth.message, {
+        autoClose: 2000
+      });
+
+      // dispatch(clearAuthStore());
+    }
+  }, [auth, navigate, dispatch]);
+
+  // handle user login
+  const handleLogin = () => {
+    setLoading(true);
+
+    if(loginData.email && loginData.password){
+      dispatch(signin(loginData));
+    }else{
+      setLoading(false);
+      toast.error('Please fill all the required fields', {
+        autoClose: 2000
+      });
+      return;
+    }
+  }
+
 
   return (
     <>
@@ -71,8 +120,12 @@ function LoginForm() {
                 </div>
               </div>
 
-              <Button className='button bg-green-600  hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full'>
-                Sign In
+              <Button 
+                className='button bg-green-600  hover:bg-green-500 active:bg-green-700 text-white radius-round h-11 px-8 py-2 w-full'
+                onClick={handleLogin}
+                disabled={loading}
+              >
+                { loading ? 'Signing In...' : 'Sign In' }
               </Button>
             </div>
           </div>

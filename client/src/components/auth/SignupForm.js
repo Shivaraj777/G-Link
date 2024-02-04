@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ToggleShowPassword from '../ToggleShowPassword';
 import { Button } from '../../styles/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearAuthStore, signup } from '../../redux/auth/auth.action';
+import { signup } from '../../redux/auth/auth.action';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -49,7 +49,7 @@ function SignupForm() {
       toast.error(auth.message, {
         autoClose: 2000
       });
-      dispatch(clearAuthStore());
+      // dispatch(clearAuthStore());
     }
   }, [auth, navigate, dispatch]);
 
