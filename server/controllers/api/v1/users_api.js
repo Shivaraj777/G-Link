@@ -12,6 +12,7 @@ const env = require('../../../config/environment');
 module.exports.createUser = async function(req, res){
     try{
         const {name, email, password, contact} = req.body;
+        console.log(contact);
 
         // check if fileds are not blank
         if(!name || !email || !password || !contact){
