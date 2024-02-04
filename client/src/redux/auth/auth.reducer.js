@@ -12,6 +12,12 @@ const authReducer = (state = initialState, action) => {
         ...action.payload
       }
 
+    case SIGN_UP:
+      return {
+        ...state,
+        ...action.payload
+      }
+
     case CLEAR_AUTH_STORE:
       return {
         ...action.payload
