@@ -13,3 +13,15 @@ export const signup = (newUser) => {
     }
   });
 }
+
+
+// api call for user login
+export const login = (user) => {
+  return customFetch(API_URLs.login(), {
+    method: 'POST',
+    body: {
+      email: user.email,
+      password: user.password
+    }
+  });
+}
