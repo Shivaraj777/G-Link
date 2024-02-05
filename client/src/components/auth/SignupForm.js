@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ToggleShowPassword from '../ToggleShowPassword';
 import { Button } from '../../styles/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { signup } from '../../redux/auth/auth.action';
+import { clearAuthStore, signup } from '../../redux/auth/auth.action';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,7 +15,7 @@ function SignupForm() {
   const dispatch = useDispatch(); // get dispatch function from store
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth); // get global auth state
-  console.log(auth);
+  // console.log(auth);
 
   // state to manage form data
   const [signupData, setSignupData] = useState({
@@ -38,18 +38,26 @@ function SignupForm() {
       return;
     }
 
-    if(auth.success){
+    if(auth.success === true){
       setLoading(false);
       toast.success(auth.message, {
         autoClose: 2000
       });
+
+      dispatch(clearAuthStore());
       navigate('/auth');
-    }else{
+      // toast.success(auth.message, {
+      //   autoClose: 2000
+      // });
+    }
+    
+    if(auth.success === false){
       setLoading(false);
       toast.error(auth.message, {
         autoClose: 2000
       });
-      // dispatch(clearAuthStore());
+
+      dispatch(clearAuthStore());
     }
   }, [auth, navigate, dispatch]);
 

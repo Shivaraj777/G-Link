@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Button } from '../../styles/Button';
 import ToggleShowPassword from '../ToggleShowPassword';
 import { useDispatch, useSelector } from 'react-redux';
-import { signin } from '../../redux/auth/auth.action';
+import { clearAuthStore, signin } from '../../redux/auth/auth.action';
 import { toast } from 'react-toastify';
 
 function LoginForm() {
@@ -32,21 +32,23 @@ function LoginForm() {
       return;
     }
 
-    if(auth.success){
+    if(auth.success === true){
       setLoading(false);
       toast.success(auth.message, {
         autoClose: 2000
       });
 
       navigate('/');
-      // dispatch(clearAuthStore());
-    }else{
+      dispatch(clearAuthStore());
+    }
+    
+    if(auth.success === false){
       setLoading(false);
       toast.error(auth.message, {
         autoClose: 2000
       });
 
-      // dispatch(clearAuthStore());
+      dispatch(clearAuthStore());
     }
   }, [auth, navigate, dispatch]);
 

@@ -23,7 +23,7 @@ export const signup = (newuser) => async (dispatch) => {
 
     return dispatch({ type: SIGN_UP, payload: payload });
   }else{
-    return dispatch({ type: ERROR, payload: response.error });
+    return dispatch({ type: ERROR, payload: response });
   }
 }
 
@@ -57,3 +57,10 @@ export const clearAuthStore = () => async (dispatch) => {
     return dispatch({ type: ERROR, payload: err });
   }
 }
+
+// export const clearAuthStore = () => {
+//   return {
+//     type: CLEAR_AUTH_STORE,
+//     payload: {}
+//   }
+// }
