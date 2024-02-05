@@ -44,7 +44,7 @@ export const signin = (user) => async (dispatch) => {
 
     return dispatch({ type: SIGN_IN, payload: payload });
   }else{
-    return dispatch({ type: ERROR, payload: response.error });
+    return dispatch({ type: ERROR, payload: response });
   }
 }
 

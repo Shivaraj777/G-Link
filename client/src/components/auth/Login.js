@@ -3,13 +3,10 @@ import styled from 'styled-components';
 import Toggler from '../Toggler';
 import { NavLink } from 'react-router-dom';
 import LoginForm from './LoginForm';
-import { ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   return (
     <StyledLogin className='login-page-bg'>
-      <ToastContainer />
       <div className='toggle-icon'>
         <Toggler />
       </div>

@@ -4,8 +4,7 @@ import { Button } from '../../styles/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearAuthStore, signup } from '../../redux/auth/auth.action';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 function SignupForm() {
   const [EyeIcon1, InputType1] = ToggleShowPassword(); // get password visibility details
@@ -194,7 +193,6 @@ function SignupForm() {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   )
 }
