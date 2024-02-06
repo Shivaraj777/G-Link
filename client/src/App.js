@@ -10,6 +10,7 @@ import { Routes, Route } from 'react-router-dom';
 import AuthPage from './pages/AuthPage';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
+import VerifyEmail from './components/VerifyEmail';
 
 function App() {
   // access store state using useSelector hook
@@ -152,6 +153,7 @@ function App() {
             <Route path='' element={<Login />} />
             <Route path='sign-up' element={<Signup />} />
           </Route>
+          <Route exact path='/verify-email/:token' element={<VerifyEmail />} />
         </Routes>
       </div>
     </ThemeProvider>
