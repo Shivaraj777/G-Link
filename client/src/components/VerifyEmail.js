@@ -1,10 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GoMail } from 'react-icons/go';
 import ResendVerificationEmailModal from './modal/ResendVerificationEmailModal';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { verifyEmail } from '../redux/auth/auth.action';
 
 function VerifyEmail() {
+  const {token} = useParams(); // get the token from url
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = useState(false); // state to manage open/close of modal
+  const [jwtToken, setJwtToken] = useState(null);
+  const [message, setMessage] = useState('We are verifying your Email...'); // state to manage verification message
+  const [status, setStatus] = useState(false); // state to manage verification status
+  console.log(message, status);
+
+  // get global auth state
+  const auth = useSelector((state) => state.auth);
+
+  // verify jwt on page load
+  useEffect(() => {
+    setJwtToken(token);
+    dispatch(verifyEmail(token));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [jwtToken]);
+
+
+  // update authentication status after verification
+  useEffect(() => {
+    setMessage(auth.message);
+    setStatus(auth.success);
+  }, [auth]);
+
 
   // handle opening modal
   const openModal = () => {
@@ -13,7 +42,7 @@ function VerifyEmail() {
 
   return (
     <Wrapper className='flex flex-col justify-center items-center'>
-      { false ? (
+      { status ? (
         <>
           <div className='flex flex-col justify-center items-center w-3/4'>
             <GoMail className='w-2/4 h-2/4 red' color='#8af859' />
@@ -34,7 +63,7 @@ function VerifyEmail() {
               <GoMail className='w-2/4 h-2/4 red' color='#faab07' />
 
               <p className='text-2xl text-gray-900 dark:text-white my-2 px-2 mx-auto align-middle'>
-                Message
+                {message}
               </p>
 
               <button className='cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle'>

@@ -54,7 +54,7 @@ export const signin = (user) => async (dispatch) => {
 export const verifyEmail = (token) => async(dispatch) => {
   const response = await verifyUserEmail(token);
 
-  if(response.success){
+  if(response.success === true){
     const payload = {
       message: response.message,
       success: response.success
