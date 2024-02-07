@@ -1,4 +1,4 @@
-import { login, signup as userSignup } from '../../api/authApi';
+import { login, signup as userSignup, verifyUserEmail } from '../../api/authApi';
 import { ACCESS_TOKEN_KEY, setItemsInLocalStorage } from '../../utils';
 
 // action types
@@ -6,6 +6,7 @@ export const SIGN_UP = 'SIGN_UP';
 export const ERROR = 'ERROR';
 export const CLEAR_AUTH_STORE = 'CLEAR_AUTH_STORE';
 export const SIGN_IN = 'SIGN_IN';
+export const VERIFY_USER_EMAIL = 'VERIFY_USER_EMAIL';
 
 
 // signup action creator
@@ -49,6 +50,23 @@ export const signin = (user) => async (dispatch) => {
 }
 
 
+// verify email action creator
+export const verifyEmail = (token) => async(dispatch) => {
+  const response = await verifyUserEmail(token);
+
+  if(response.success){
+    const payload = {
+      message: response.message,
+      success: response.success
+    }
+
+    return dispatch({ type: VERIFY_USER_EMAIL, payload: payload });
+  }else{
+    return dispatch({ type: ERROR, paylod: response });
+  }
+}
+
+
 // action to clear auth store
 export const clearAuthStore = () => async (dispatch) => {
   try{
@@ -57,10 +75,3 @@ export const clearAuthStore = () => async (dispatch) => {
     return dispatch({ type: ERROR, payload: err });
   }
 }
-
-// export const clearAuthStore = () => {
-//   return {
-//     type: CLEAR_AUTH_STORE,
-//     payload: {}
-//   }
-// }
