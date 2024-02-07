@@ -25,3 +25,14 @@ export const login = (user) => {
     }
   });
 }
+
+
+// api call to verify user email
+export const verifyUserEmail = (token) => {
+  return customFetch(API_URLs.verifyEmail(), {
+    method: 'PATCH',
+    body: {
+      token: token
+    }
+  });
+}
