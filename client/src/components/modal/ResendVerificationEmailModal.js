@@ -1,13 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 
 function ResendVerificationEmailModal(props) {
   const { isOpen, setIsOpen } = props;
+  const [userData, setUserData] = useState({ email: '' });
+  console.log(userData);
+
+  // handle form input change
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  }
+
+
+  // handle res-sending verification email
+  const resendVerificationEmail = () => {
+    if(userData.email === '' || userData.email === null){
+      alert('Please enter a valid email');
+      return;
+    }
+
+    setIsOpen(false);
+    setUserData({ email: '' });
+  }
+
 
   // handle modal close
   const closeModal = () => {
     setIsOpen(false);
+    setUserData({ email: '' });
   }
 
   return (
@@ -59,6 +80,8 @@ function ResendVerificationEmailModal(props) {
                         className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                         placeholder='John@gmail.com'
                         name='email'
+                        value={userData.email}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -71,7 +94,10 @@ function ResendVerificationEmailModal(props) {
                   >
                     Cancel
                   </button>
-                  <button className='btn bg-cyan-500 rounded px-4'>
+                  <button 
+                    className='btn bg-cyan-500 rounded px-4'
+                    onClick={resendVerificationEmail}
+                  >
                     Send
                   </button>
                 </div>

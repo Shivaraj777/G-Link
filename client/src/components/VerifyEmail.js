@@ -2,19 +2,20 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GoMail } from 'react-icons/go';
 import ResendVerificationEmailModal from './modal/ResendVerificationEmailModal';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { verifyEmail } from '../redux/auth/auth.action';
 
 function VerifyEmail() {
   const {token} = useParams(); // get the token from url
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false); // state to manage open/close of modal
   const [jwtToken, setJwtToken] = useState(null);
   const [message, setMessage] = useState('We are verifying your Email...'); // state to manage verification message
   const [status, setStatus] = useState(false); // state to manage verification status
-  console.log(message, status);
+  // console.log(message, status, token);
 
   // get global auth state
   const auth = useSelector((state) => state.auth);
@@ -22,10 +23,10 @@ function VerifyEmail() {
   // verify jwt on page load
   useEffect(() => {
     setJwtToken(token);
-    dispatch(verifyEmail(token));
+    dispatch(verifyEmail(jwtToken));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [jwtToken]);
+  }, [token]);
 
 
   // update authentication status after verification
@@ -33,6 +34,12 @@ function VerifyEmail() {
     setMessage(auth.message);
     setStatus(auth.success);
   }, [auth]);
+
+
+  // navigate to home page
+  const startChatting = () => {
+    navigate('/');
+  }
 
 
   // handle opening modal
@@ -52,7 +59,10 @@ function VerifyEmail() {
             </p>
 
             <div className='w-2/4 flex justify-center item-center'>
-              <button className='cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle'>
+              <button 
+                className='cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle'
+                onClick={startChatting}
+              >
                 <span className='text-2xl text-white'>Start Chatting</span>
               </button>
             </div>
@@ -66,11 +76,11 @@ function VerifyEmail() {
                 {message}
               </p>
 
-              <button className='cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle'>
-                <span 
-                  className='text-2xl text-white'
-                  onClick={openModal}
-                >
+              <button 
+                className='cursor-pointer bg-blue-500 my-2 px-3 rounded-lg py-3 mx-auto align-middle'
+                onClick={openModal}
+              >
+                <span className='text-2xl text-white'>
                   Resend Verification Link
                 </span>
               </button>

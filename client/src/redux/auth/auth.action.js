@@ -62,7 +62,7 @@ export const verifyEmail = (token) => async(dispatch) => {
 
     return dispatch({ type: VERIFY_USER_EMAIL, payload: payload });
   }else{
-    return dispatch({ type: ERROR, paylod: response });
+    return dispatch({ type: ERROR, payload: response });
   }
 }
 
