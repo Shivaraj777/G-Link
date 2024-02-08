@@ -23,17 +23,24 @@ function VerifyEmail() {
   // verify jwt on page load
   useEffect(() => {
     setJwtToken(token);
-    dispatch(verifyEmail(jwtToken));
+    if(jwtToken !== null){
+      dispatch(verifyEmail(jwtToken));
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [jwtToken]);
 
 
-  // update authentication status after verification
+  // update verification status message
   useEffect(() => {
     setMessage(auth.message);
+  }, [auth.message]);
+
+
+  // update verification status
+  useEffect(() => {
     setStatus(auth.success);
-  }, [auth]);
+  }, [auth.success]);
 
 
   // navigate to home page

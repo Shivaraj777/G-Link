@@ -217,7 +217,7 @@ module.exports.resendVerificationEmail = async (req, res) => {
         usersMailer.verifyAccount(user, url); 
 
         return res.status(200).json({
-            message: `An email is sent to ${user.email}. Please verify ypur email.`,
+            message: `An email is sent to ${user.email}. Please verify your email.`,
             success: true
         });
     }catch(err){
@@ -260,7 +260,7 @@ module.exports.verifyEmail = async function(req, res){
     }catch(err){
         console.log(`Error: ${err}`);
         return res.status(500).json({
-            message: 'Internal server error',
+            message: 'The verification link has expired/Invalid link',
             success: false
         });
     }
