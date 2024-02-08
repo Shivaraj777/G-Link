@@ -1,4 +1,4 @@
-import { CLEAR_AUTH_STORE, ERROR, SIGN_IN, SIGN_UP, VERIFY_USER_EMAIL } from "./auth.action";
+import { CLEAR_AUTH_STORE, ERROR, RESEND_VERIFICATION_EMAIL, SIGN_IN, SIGN_UP, VERIFY_USER_EMAIL } from "./auth.action";
 
 // set initial state
 const initialState = {};
@@ -19,6 +19,12 @@ const authReducer = (state = initialState, action) => {
       }
 
     case VERIFY_USER_EMAIL:
+      return {
+        ...state,
+        ...action.payload
+      }
+
+    case RESEND_VERIFICATION_EMAIL:
       return {
         ...state,
         ...action.payload

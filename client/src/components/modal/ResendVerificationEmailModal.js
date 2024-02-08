@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { useDispatch } from 'react-redux';
+import { resendEmail } from '../../redux/auth/auth.action';
 
 
 function ResendVerificationEmailModal(props) {
   const { isOpen, setIsOpen } = props;
   const [userData, setUserData] = useState({ email: '' });
-  console.log(userData);
+  const dispatch = useDispatch();
 
   // handle form input change
   const handleChange = (e) => {
@@ -19,6 +21,8 @@ function ResendVerificationEmailModal(props) {
       alert('Please enter a valid email');
       return;
     }
+
+    dispatch(resendEmail(userData.email));
 
     setIsOpen(false);
     setUserData({ email: '' });
