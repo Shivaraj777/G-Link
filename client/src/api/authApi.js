@@ -36,3 +36,14 @@ export const verifyUserEmail = (token) => {
     }
   });
 }
+
+
+// api call to resend verification email
+export const resendVerificationEmail = (email) => {
+  return customFetch(API_URLs.resendVerificationEmail(), {
+    method: 'POST',
+    body: {
+      email: email
+    }
+  });
+} 

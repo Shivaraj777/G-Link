@@ -8,7 +8,8 @@ const API_ROOT = 'http://localhost:8000/api/v1';
 export const API_URLs = {
   signup: () => `${API_ROOT}/user/register`,
   login: () => `${API_ROOT}/user/create-session`,
-  verifyEmail: () => `${API_ROOT}/user/verify-email`
+  verifyEmail: () => `${API_ROOT}/user/verify-email`,
+  resendVerificationEmail: () => `${API_ROOT}/user/resend/verification-email`
 }
 
 // G-Link access token
