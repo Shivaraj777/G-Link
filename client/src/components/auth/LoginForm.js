@@ -100,7 +100,7 @@ function LoginForm() {
                 <div className='mb-2 flex justify-between'>
                   <label className='form-label'>Password</label>
                   <span>
-                    <NavLink to='/' className='hover:underline'>
+                    <NavLink to='/forgot-password' className='hover:underline'>
                       Forgot Password?
                     </NavLink>
                   </span>

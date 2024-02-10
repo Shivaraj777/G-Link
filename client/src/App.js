@@ -11,6 +11,7 @@ import AuthPage from './pages/AuthPage';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import VerifyEmail from './components/VerifyEmail';
+import ForgotPassword from './components/auth/ForgotPassword';
 
 function App() {
   // access store state using useSelector hook
@@ -154,6 +155,7 @@ function App() {
             <Route path='sign-up' element={<Signup />} />
           </Route>
           <Route exact path='/verify-email/:token' element={<VerifyEmail />} />
+          <Route exact path='/forgot-password' element={<ForgotPassword />} />
         </Routes>
       </div>
     </ThemeProvider>
