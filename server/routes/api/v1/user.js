@@ -19,7 +19,7 @@ router.get('/get-user-detail', passport.authenticate('jwt', {session: false}), u
 router.put('/update-profile', passport.authenticate('jwt', {session: false}), usersAPI.updateProfile);
 router.post('/resend/verification-email', usersAPI.resendVerificationEmail);
 router.patch('/verify-email', usersAPI.verifyEmail);
-router.get('/forgot-password', usersAPI.forgotPassword);
+router.post('/forgot-password', usersAPI.forgotPassword);
 router.patch('/reset-password', usersAPI.resetPassword);
 router.put('/upload/profile-image', passport.authenticate('jwt', {session: false}), upload.single('image'), usersAPI.uploadProfileImage);
 

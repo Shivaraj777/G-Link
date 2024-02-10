@@ -47,3 +47,14 @@ export const resendVerificationEmail = (email) => {
     }
   });
 } 
+
+
+// api call to request reset password link via email
+export const forgotPassword = (email) => {
+  return customFetch(API_URLs.forgotPassword(), {
+    method: 'POST',
+    body: {
+      email: email
+    }
+  });
+}

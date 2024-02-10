@@ -9,7 +9,8 @@ export const API_URLs = {
   signup: () => `${API_ROOT}/user/register`,
   login: () => `${API_ROOT}/user/create-session`,
   verifyEmail: () => `${API_ROOT}/user/verify-email`,
-  resendVerificationEmail: () => `${API_ROOT}/user/resend/verification-email`
+  resendVerificationEmail: () => `${API_ROOT}/user/resend/verification-email`,
+  forgotPassword: () => `${API_ROOT}/user/forgot-password`
 }
 
 // G-Link access token
