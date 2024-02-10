@@ -58,3 +58,15 @@ export const forgotPassword = (email) => {
     }
   });
 }
+
+
+// api call to reset user password
+export const resetPassword = (userData) => {
+  return customFetch(API_URLs.resetPassword(), {
+    method: 'PATCH',
+    body: {
+      token: userData.token,
+      newPassword: userData.newPassword
+    }
+  })
+}
