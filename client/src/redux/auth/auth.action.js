@@ -1,4 +1,4 @@
-import { login, resendVerificationEmail, signup as userSignup, verifyUserEmail } from '../../api/authApi';
+import { forgotPassword, login, resendVerificationEmail, signup as userSignup, verifyUserEmail } from '../../api/authApi';
 import { ACCESS_TOKEN_KEY, setItemsInLocalStorage } from '../../utils';
 
 // action types
@@ -8,6 +8,7 @@ export const CLEAR_AUTH_STORE = 'CLEAR_AUTH_STORE';
 export const SIGN_IN = 'SIGN_IN';
 export const VERIFY_USER_EMAIL = 'VERIFY_USER_EMAIL';
 export const RESEND_VERIFICATION_EMAIL = 'RESEND_VERIFICATION_EMAIL';
+export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 
 
 // signup action creator
@@ -78,6 +79,23 @@ export const resendEmail = (email) => async (dispatch) => {
     }
 
     return dispatch({ type: RESEND_VERIFICATION_EMAIL, payload: payload });
+  }else{
+    return dispatch({ type: ERROR, payload: response });
+  }
+}
+
+
+// action creator for forgot password scenario
+export const forgotPasswordScenario = (email) => async (dispatch) => {
+  const response = await forgotPassword(email);
+
+  if(response.success === true){
+    const payload = {
+      message: response.message,
+      success: response.success
+    }
+
+    return dispatch({ type: FORGOT_PASSWORD, payload: payload });
   }else{
     return dispatch({ type: ERROR, payload: response });
   }
