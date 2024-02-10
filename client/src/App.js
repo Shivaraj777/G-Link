@@ -14,6 +14,7 @@ import VerifyEmail from './components/VerifyEmail';
 import ForgotPassword from './components/auth/ForgotPassword';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import ResetPassword from './components/auth/ResetPassword';
 
 function App() {
   // access store state using useSelector hook
@@ -159,6 +160,7 @@ function App() {
           </Route>
           <Route exact path='/verify-email/:token' element={<VerifyEmail />} />
           <Route exact path='/forgot-password' element={<ForgotPassword />} />
+          <Route exact path='/reset-password/:token' element={<ResetPassword />} />
         </Routes>
       </div>
     </ThemeProvider>
