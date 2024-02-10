@@ -323,11 +323,8 @@ module.exports.resetPassword = async function(req, res){
         user = await user.save();
 
         return res.status(200).json({
-            data: {
-                user
-            },
             message: 'User password reset successfully',
-            success: false
+            success: true
         });
 
     }catch(err){
