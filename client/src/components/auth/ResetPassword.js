@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 function ResetPassword() {
+  // state to manage form data
+  const [userData, setUserData] = useState({
+    token: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+
+  // handle change in form data
+  const handleChange = (e) => {
+    setUserData((prevState) => ({...prevState, [e.target.name]: e.target.value }));
+  }
+
   return (
     <Wrapper>
       <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
@@ -12,7 +24,7 @@ function ResetPassword() {
 
           {false ? (
             <>
-              <p className='text-gray-500 text-center'>Message</p>
+              <p className='text-center'>Message</p>
               <button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'>
                 Home
               </button>
@@ -20,7 +32,7 @@ function ResetPassword() {
                 Resend Password Reset Link
               </button>
             </>) : (
-              
+
             // form to reset password
             <>
               <div className='mt-4 space-y-4 lg:mt-5 md:space-y-5'>
@@ -38,6 +50,8 @@ function ResetPassword() {
                     className='input input-md h-11 sm:text-sm rounded-lg w-full p-2.5 dark:placeholder-gray-400'
                     placeholder='New Password'
                     required=''
+                    value={userData.newPassword}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
@@ -45,7 +59,7 @@ function ResetPassword() {
                     htmlFor='confirmPassword'
                     className='block mb-2 text-sm font-medium'
                   >
-                    New Password
+                    Confirm Password
                   </label>
                   <input
                     type='password'
@@ -54,6 +68,8 @@ function ResetPassword() {
                     className='input input-md h-11 sm:text-sm rounded-lg w-full p-2.5 dark:placeholder-gray-400'
                     placeholder='Confirm Password'
                     required=''
+                    value={userData.confirmPassword}
+                    onChange={handleChange}
                   />
                 </div>
                 <button className='w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
