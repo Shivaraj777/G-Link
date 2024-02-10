@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { clearAuthStore, forgotPasswordScenario } from '../../redux/auth/auth.action';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function ForgotPassword() {
   const dispatch = useDispatch();
@@ -24,11 +25,15 @@ function ForgotPassword() {
   useEffect(() => {
     if(auth.message){
       setMessage(auth.message);
-      if(!auth.status){
-        console.log(auth.message);
+      if(!auth.success){
+        toast.error(auth.message, {
+          autoClose: 2000
+        });
+      }else{
+        toast.success('Password Reset mail sent successfully', {
+          autoClose: 2000
+        });
       }
-    }else{
-      console.log('Password Reset mail sent successfully');
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,7 +43,9 @@ function ForgotPassword() {
   // send password reset email
   const sendPasswordResetEmail = () => {
     if(userData.email === '' || userData.email === null){
-      console.log('Please enter a valid email');
+      toast.warn('Please enter a valid email', {
+        autoClose: 2000
+      });
       return;
     }
 

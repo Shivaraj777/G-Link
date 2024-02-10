@@ -12,6 +12,8 @@ import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import VerifyEmail from './components/VerifyEmail';
 import ForgotPassword from './components/auth/ForgotPassword';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   // access store state using useSelector hook
@@ -147,6 +149,7 @@ function App() {
   return (
     <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
       <GlobalStyle />
+      <ToastContainer />
       <div className='App'>
         <Routes>
           <Route exact path='/' element={<HomePage />} />
