@@ -16,7 +16,7 @@ export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const signup = (newuser) => async (dispatch) => {
   const response = await userSignup(newuser);
 
-  if(response.success){
+  if(response.success === true){
     // setItemsInLocalStorage(ACCESS_TOKEN_KEY, response.data.token);
     const payload = {
       ...response.data.user,
@@ -36,7 +36,7 @@ export const signup = (newuser) => async (dispatch) => {
 export const signin = (user) => async (dispatch) => {
   const response = await login(user);
   
-  if(response.success){
+  if(response.success === true){
     const payload = {
       token: response.data.token,
       message: response.message,
