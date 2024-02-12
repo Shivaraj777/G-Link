@@ -1,9 +1,9 @@
+// imports
 import './App.css';
 import { ThemeProvider } from 'styled-components';
-import HomePage from './pages/HomePage';
 import AOS from 'aos';
 import "aos/dist/aos.css";
-import { useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { GlobalStyle } from './styles/GlobalStyles';
 import { Routes, Route } from 'react-router-dom';
@@ -15,10 +15,15 @@ import ForgotPassword from './components/auth/ForgotPassword';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from './components/auth/ResetPassword';
+import Loading from './components/Loading';
+
+// dynamic imports
+const HomePage = React.lazy(() => import('./pages/HomePage'));
 
 function App() {
   // access store state using useSelector hook
   const { darkThemeEnabled } = useSelector((state) => state.theme);
+  const [loading, setLoading] = useState(true);
 
   // initialize AOS
   useEffect(() => {
@@ -147,21 +152,38 @@ function App() {
   };
 
 
+  // handle page load
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+
   return (
     <ThemeProvider theme={darkThemeEnabled ? darkTheme : lightTheme}>
       <GlobalStyle />
       <ToastContainer />
-      <div className='App'>
-        <Routes>
-          <Route exact path='/' element={<HomePage />} />
-          <Route path='/auth' element={<AuthPage />}>
-            <Route path='' element={<Login />} />
-            <Route path='sign-up' element={<Signup />} />
-          </Route>
-          <Route exact path='/verify-email/:token' element={<VerifyEmail />} />
-          <Route exact path='/forgot-password' element={<ForgotPassword />} />
-          <Route exact path='/reset-password/:token' element={<ResetPassword />} />
-        </Routes>
+      <div className='App w-screen'>
+        {loading ? (
+          <Loading />) : (
+            /* Suspense: suspend rendering the UI until component is loaded  
+               fallback UI is displayed untill loading is completed
+            */
+            <Suspense fallback={<Loading />}>
+              <Routes>
+                <Route exact path='/' element={<HomePage />} />
+                <Route path='/auth' element={<AuthPage />}>
+                  <Route path='' element={<Login />} />
+                  <Route path='sign-up' element={<Signup />} />
+                </Route>
+                <Route exact path='/verify-email/:token' element={<VerifyEmail />} />
+                <Route exact path='/forgot-password' element={<ForgotPassword />} />
+                <Route exact path='/reset-password/:token' element={<ResetPassword />} />
+              </Routes>
+            </Suspense>
+          )
+        }
       </div>
     </ThemeProvider>
   );
