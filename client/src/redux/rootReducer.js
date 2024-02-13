@@ -2,11 +2,13 @@
 import { combineReducers } from 'redux';
 import themeReducer from './theme/theme.reducer';
 import authReducer from './auth/auth.reducer';
+import tabReducer from './tab/tab.reducer';
 
 // combine reducers
 const rootReducer = combineReducers({
     auth: authReducer,
-    theme: themeReducer
+    theme: themeReducer,
+    tab: tabReducer
 });
 
 export default rootReducer;
