@@ -46,6 +46,7 @@ function App() {
       green: "#4eac6d",
       danger: "#ff4e2b",
       light: "#223645",
+      primaryRgb: "rgb(28, 157, 234)",
 
       text: {
         primary: "#000000",
@@ -104,6 +105,7 @@ function App() {
       green: "#4eac6d",
       danger: "#ff4e2b",
       light: "#223645",
+      primaryRgb: "rgb(28, 157, 234)",
 
       text: {
         primary: "#212529",

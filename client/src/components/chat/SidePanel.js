@@ -7,9 +7,14 @@ import { RiContactsLine } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import Toggler from '../Toggler';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTab } from '../../redux/tab/tab.action';
 
 function SidePanel() {
   const [menu, setMenu] = useState(false);
+  const dispatch = useDispatch();
+  const { tabIndex } = useSelector((state) => state.tab);
+  console.log(tabIndex);
 
   // define the items for Side panel
   const sidePanelData = [
@@ -40,6 +45,12 @@ function SidePanel() {
 
     }
   ];
+
+
+  // update menu acive tab on click
+  const setActiveTab = (index) => {
+    dispatch(toggleTab(index));
+  }
 
 
   return (
@@ -87,10 +98,12 @@ function SidePanel() {
                   key={index}
                   className='side-menu-item'
                   title={item.title}
+                  onClick={() => setActiveTab(index + 1)}
                 >
                   <div 
                     to={item.title} 
-                    className={index === 2 && true ? "nav-link active" : (true ? "nav-link active" : "nav-link")}
+                    className={index === 2 && tabIndex === 0 ? "nav-link active" : (tabIndex === (index + 1) ? "nav-link active" : "nav-link")}
+                    onClick={() => setMenu(false)}
                   >
                     <item.icon className='icon' />
                   </div>
@@ -176,7 +189,7 @@ const Wrapper = styled.section`
         }
       }
 
-      .nav-link .active{
+      .nav-link.active{
         background-color: ${({ theme }) => theme.colors.btn.light};
         color: ${({ theme }) => theme.colors.primaryRgb};
       }
