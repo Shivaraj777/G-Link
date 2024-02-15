@@ -11,7 +11,8 @@ export const API_URLs = {
   verifyEmail: () => `${API_ROOT}/user/verify-email`,
   resendVerificationEmail: () => `${API_ROOT}/user/resend/verification-email`,
   forgotPassword: () => `${API_ROOT}/user/forgot-password`,
-  resetPassword: () => `${API_ROOT}/user/reset-password`
+  resetPassword: () => `${API_ROOT}/user/reset-password`,
+  getUser: () => `${API_ROOT}/user/get-user-detail`
 }
 
 // G-Link access token
