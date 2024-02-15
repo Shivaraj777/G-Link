@@ -10,7 +10,7 @@ export const getCurrentUser = () => async (dispatch) => {
   const response = await getUser();
 
   if(response.success === true){
-    return dispatch({ type: GET_CURRENT_USER, payload: response.userDetails });
+    return dispatch({ type: GET_CURRENT_USER, payload: response.data.userDetails });
   }else{
     return dispatch({ type: ERROR, payload: response.error });
   }

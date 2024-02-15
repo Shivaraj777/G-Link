@@ -3,7 +3,7 @@ import { GET_CURRENT_USER } from "./user.action";
 
 // define the initial state
 const initialState = {
-  user: {}
+  userDetails: {}
 };
 
 
@@ -13,7 +13,7 @@ const userReducer = (state = initialState, action) => {
     case GET_CURRENT_USER:
       return {
         ...state,
-        ...action.payload
+        userDetails: action.payload
       }
 
     default: 
