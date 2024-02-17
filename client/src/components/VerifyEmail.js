@@ -1,3 +1,4 @@
+/* User is redirected to VerifyEmail Page after clicking the link sent to verify their account */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GoMail } from 'react-icons/go';

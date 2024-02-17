@@ -16,6 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from './components/auth/ResetPassword';
 import Loading from './components/Loading';
+import Verification from './components/Verification';
 
 // dynamic imports
 const HomePage = React.lazy(() => import('./pages/HomePage'));
@@ -180,6 +181,7 @@ function App() {
                   <Route path='sign-up' element={<Signup />} />
                 </Route>
                 <Route exact path='/verify-email/:token' element={<VerifyEmail />} />
+                <Route exact path='/user/verification' element={<Verification />} />
                 <Route exact path='/forgot-password' element={<ForgotPassword />} />
                 <Route exact path='/reset-password/:token' element={<ResetPassword />} />
               </Routes>
