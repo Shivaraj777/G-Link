@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import SidePanel from './SidePanel';
+import ChatMenu from './ChatMenu';
 
 function Chat() {
   return (
     <StyledChat className='flex justify-start w-screen'>
       <SidePanel />
+      <ChatMenu />
     </StyledChat>
   )
 }
