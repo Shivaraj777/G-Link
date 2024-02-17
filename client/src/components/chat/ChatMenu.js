@@ -1,15 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import Profile from './Profile';
 
 function ChatMenu() {
   const { tabIndex } = useSelector((state) => state.tab); //get current side panel tab index
+  const user = useSelector((state) => state.user.userDetails); // get user details from store
 
   return (
     <StyledChatMenu className='chat-menu-section'>
       <div className='tab-content'>
         <div className={tabIndex === 1 ? 'tab-panel active' : 'tab-panel'}>
           {/* Profile component */}
+          <Profile 
+            name={user.name}
+            email={user.email}
+            about={user.about}
+            contact={user.contact}
+            pic={user.profile}
+          />
         </div>
 
         <div className={tabIndex === 2 ? 'tab-panel active' : 'tab-panel'}>
