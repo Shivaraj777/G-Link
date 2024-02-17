@@ -1,4 +1,4 @@
-import { CLEAR_AUTH_STORE, ERROR, FORGOT_PASSWORD, RESEND_VERIFICATION_EMAIL, RESET_PASSWORD, SIGN_IN, SIGN_UP, VERIFY_USER_EMAIL } from "./auth.action";
+import { CLEAR_AUTH_STORE, ERROR, FORGOT_PASSWORD, RESEND_VERIFICATION_EMAIL, RESET_PASSWORD, SIGN_IN, SIGN_OUT, SIGN_UP, VERIFY_USER_EMAIL } from "./auth.action";
 
 // set initial state
 const initialState = {};
@@ -39,6 +39,11 @@ const authReducer = (state = initialState, action) => {
     case RESET_PASSWORD:
       return {
         ...state,
+        ...action.payload
+      }
+
+    case SIGN_OUT:
+      return {
         ...action.payload
       }
 

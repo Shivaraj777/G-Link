@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import Toggler from '../Toggler';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTab } from '../../redux/tab/tab.action';
+import { signOut } from '../../redux/auth/auth.action';
 
 function SidePanel() {
   const [menu, setMenu] = useState(false);
@@ -50,6 +51,12 @@ function SidePanel() {
   // update menu acive tab on click
   const setActiveTab = (index) => {
     dispatch(toggleTab(index));
+  }
+
+
+  // handle signout
+  const handleLogout = () => {
+    dispatch(signOut());
   }
 
 
@@ -118,7 +125,7 @@ function SidePanel() {
               </li>
 
               {/* Logout  */}
-              <li title='Logout' className='side-menu-item'>
+              <li title='Logout' className='side-menu-item' onClick={handleLogout}>
                 <div to='/' className='nav-link'>
                   <IoLogOutOutline className='icon' />
                 </div>

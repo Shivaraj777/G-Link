@@ -9,6 +9,7 @@ export const setItemsInLocalStorage = (key, value) => {
   localStorage.setItem(key, valueToStore);  //add the value to local storage
 }
   
+
 //function to get an item from local storage
 export const getItemsFromLocalStorage = (key) => {
   //if key or value is not present
@@ -17,4 +18,15 @@ export const getItemsFromLocalStorage = (key) => {
   }
 
   return localStorage.getItem(key);  //get the value from local storage
+}
+
+
+//function to remove item from local storage
+export const removeItemsFromLocalStorage = (key) => {
+  //if key or value is not present
+  if(!key){
+    return console.error('Cannot remove item from local storage');
+  }
+
+  localStorage.removeItem(key);  //remove the item from local storage
 }

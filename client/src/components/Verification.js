@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GoMail } from 'react-icons/go';
 import ResendVerificationEmailModal from './modal/ResendVerificationEmailModal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { signOut } from '../redux/auth/auth.action';
 
 function Verification() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [status, setStatus] = useState(false); //state to manage verification status
   const [isOpen, setIsOpen] = useState(false); // state to manage modal
 
@@ -84,6 +86,7 @@ function Verification() {
                 <div className='flex'>
                   <button
                     className='text-2xl cursor-pointer mx-auto'
+                    onClick={() => dispatch(signOut())}
                   >
                     Home
                   </button>

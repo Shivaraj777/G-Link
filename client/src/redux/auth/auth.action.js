@@ -1,5 +1,6 @@
 import { forgotPassword, login, resendVerificationEmail, resetPassword, signup as userSignup, verifyUserEmail } from '../../api/authApi';
 import { ACCESS_TOKEN_KEY, setItemsInLocalStorage } from '../../utils';
+import { removeItemsFromLocalStorage } from '../../utils/localStorageProp';
 
 // action types
 export const SIGN_UP = 'SIGN_UP';
@@ -10,6 +11,7 @@ export const VERIFY_USER_EMAIL = 'VERIFY_USER_EMAIL';
 export const RESEND_VERIFICATION_EMAIL = 'RESEND_VERIFICATION_EMAIL';
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 export const RESET_PASSWORD = 'RESET_PASSWORD';
+export const SIGN_OUT = 'SIGN_OUT';
 
 
 // signup action creator
@@ -116,6 +118,19 @@ export const resetUserPassword = (userData) => async (dispatch) => {
     return dispatch({ type: RESET_PASSWORD, payload: payload });
   }else{
     return dispatch({ type: ERROR, payload: response });
+  }
+}
+
+
+// action creator to signout user
+export const signOut = () => async (dispatch) => {
+  try{
+    removeItemsFromLocalStorage(ACCESS_TOKEN_KEY);
+    window.location.reload();
+
+    return dispatch({ type: SIGN_OUT, payload: {} });
+  }catch(err){
+    return dispatch({ type: ERROR, payload: err });
   }
 }
 
