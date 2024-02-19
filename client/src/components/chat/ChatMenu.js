@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Profile from './Profile';
+import Favourite from './Favourite';
 
 function ChatMenu() {
   const { tabIndex } = useSelector((state) => state.tab); //get current side panel tab index
@@ -23,6 +24,7 @@ function ChatMenu() {
 
         <div className={tabIndex === 2 ? 'tab-panel active' : 'tab-panel'}>
           {/* Favourites component */}
+          <Favourite />
         </div>
 
         <div className={(tabIndex === 3 || tabIndex === 0) ? 'tab-panel active' : 'tab-panel'}>
