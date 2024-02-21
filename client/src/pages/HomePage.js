@@ -6,6 +6,7 @@ import { getCurrentUser } from '../redux/user/user.action';
 import { clearAuthStore } from '../redux/auth/auth.action';
 import Loading from '../components/Loading';
 import { useNavigate } from 'react-router-dom';
+import { fetchUserChats } from '../redux/chat/chat.action';
 
 // dynamic imports
 const Landing = React.lazy(() => import('../components/Landing'));
@@ -24,6 +25,7 @@ function HomePage() {
   // get current user data
   const getuserData = async () => {
     await dispatch(getCurrentUser());
+    await dispatch(fetchUserChats());
   }
 
 
