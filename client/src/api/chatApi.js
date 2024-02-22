@@ -15,3 +15,15 @@ export const searchUsers = (search) => {
     method: 'GET'
   });
 }
+
+
+// api call to create group chat
+export const createGroupChat = (groupChat) => {
+  return customFetch(API_URLs.createGroupChat(), {
+    method: 'POST',
+    body: {
+      groupName: groupChat.name,
+      groupUsers: groupChat.users
+    }
+  });
+}
