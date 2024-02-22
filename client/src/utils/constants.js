@@ -13,7 +13,8 @@ export const API_URLs = {
   forgotPassword: () => `${API_ROOT}/user/forgot-password`,
   resetPassword: () => `${API_ROOT}/user/reset-password`,
   getUser: () => `${API_ROOT}/user/get-user-detail`,
-  fetchChats: () => `${API_ROOT}/chat/`
+  searchUsers: (search) => `${API_ROOT}/user/search-users?search=${search}`,
+  fetchChats: () => `${API_ROOT}/chat/`,
 }
 
 // G-Link access token

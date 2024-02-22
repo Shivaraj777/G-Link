@@ -7,3 +7,11 @@ export const fetchChats = () => {
     method: 'GET'
   });
 }
+
+
+// api call to fetch users based on search text
+export const searchUsers = (search) => {
+  return customFetch(API_URLs.searchUsers(search), {
+    method: 'GET'
+  });
+}
