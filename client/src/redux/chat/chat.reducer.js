@@ -1,10 +1,11 @@
-import { CLEAR_FETCHED_USERS, FETCH_USERS, FETCH_USER_CHATS, SELECT_CHAT } from "./chat.action"
+import { CLEAR_FETCHED_USERS, CREATE_GROUP_CHAT, FETCH_USERS, FETCH_USER_CHATS, SELECT_CHAT } from "./chat.action"
 
 // initialize the state
 const initialState = {
   chats: [],
   selectedChat: {},
-  searchedUsers: []
+  searchedUsers: [],
+  createdGroupChat: {}
 }
 
 
@@ -33,6 +34,12 @@ const chatReducer = (state = initialState, action) => {
       return {
         ...state,
         searchedUsers: action.payload
+      }
+
+    case CREATE_GROUP_CHAT:
+      return {
+        ...state,
+        createdGroupChat: action.payload
       }
 
     default:

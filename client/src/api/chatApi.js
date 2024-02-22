@@ -18,12 +18,12 @@ export const searchUsers = (search) => {
 
 
 // api call to create group chat
-export const createGroupChat = (groupChat) => {
+export const createGroupChat = (chatDetails) => {
   return customFetch(API_URLs.createGroupChat(), {
     method: 'POST',
     body: {
-      groupName: groupChat.name,
-      groupUsers: groupChat.users
+      groupName: chatDetails.name,
+      groupUsers: chatDetails.users
     }
   });
 }

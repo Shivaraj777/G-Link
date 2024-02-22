@@ -1,4 +1,4 @@
-import { fetchChats, searchUsers } from "../../api/chatApi";
+import { createGroupChat, fetchChats, searchUsers } from "../../api/chatApi";
 
 
 // action types
@@ -6,6 +6,7 @@ export const FETCH_USER_CHATS = 'FETCH_USER_CHATS';
 export const SELECT_CHAT = 'SELECT_CHAT';
 export const FETCH_USERS = 'FETCH_USERS';
 export const CLEAR_FETCHED_USERS = 'CLEAR_FETCHED_USERS';
+export const CREATE_GROUP_CHAT = 'CREATE_GROUP_CHAT';
 export const ERROR = 'ERROR';
 
 
@@ -36,9 +37,9 @@ export const fetchUsers = (search) => async (dispatch) => {
   const response = await searchUsers(search);
 
   if(response.success === true){
-    dispatch({ type: FETCH_USERS, payload: response.data.users });
+    return dispatch({ type: FETCH_USERS, payload: response.data.users });
   }else{
-    dispatch({ type: ERROR, payload: response.error });
+    return dispatch({ type: ERROR, payload: response.error });
   }
 } 
 
@@ -46,8 +47,20 @@ export const fetchUsers = (search) => async (dispatch) => {
 // action creator to clear fetched/searched users
 export const clearFetchedUsers = () => async (dispatch) => {
   try{
-    dispatch({ type: CLEAR_FETCHED_USERS, payload: [] });
+    return dispatch({ type: CLEAR_FETCHED_USERS, payload: [] });
   }catch(err){
-    dispatch({ type: ERROR, payload: err });
+    return dispatch({ type: ERROR, payload: err });
+  }
+}
+
+
+// action creator to create group chat
+export const createeGroupChat = (chatDetails) => async (dispatch) => {
+  const response = await createGroupChat(chatDetails);
+
+  if(response.success === true){
+    return dispatch({ type: CREATE_GROUP_CHAT, payload: response.data.groupChat })
+  }else{
+    return dispatch({ type: ERROR, payload: response.error });
   }
 }
