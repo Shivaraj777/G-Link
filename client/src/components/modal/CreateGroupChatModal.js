@@ -1,16 +1,42 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { BiGroup } from 'react-icons/bi';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { Dialog, Transition } from '@headlessui/react';
 import Spinner from '../../styles/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearFetchedUsers, createeGroupChat, fetchUserChats, fetchUsers } from '../../redux/chat/chat.action';
+import { toast } from 'react-toastify';
 
 function CreateGroupChatModal() {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [groupChatName, setGroupChatName] = useState('');
   const [selectedUsers, setSelectedUsers] = useState([]); // state to manage selected users for creating group chat
   const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
+
+  const { searchedUsers, isLoadingUsers } = useSelector((state) => state.chat);
+  const loading = isLoadingUsers;
+  // console.log(loading);
+
+
+  // fetch users on change in search text
+  useEffect(() => {
+    if(!search){
+      dispatch(clearFetchedUsers());
+      return;
+    }
+
+    dispatch(fetchUsers(search));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
+
+
+  // set users in local state from store after fetching users
+  useEffect(() => {
+    setSearchResult(searchedUsers);
+  }, [searchedUsers]);
 
 
   // handle modal open
@@ -22,8 +48,59 @@ function CreateGroupChatModal() {
   // handle modal close
   const closeModal = () => {
     setIsOpen(false);
+    setGroupChatName('');
     setSearch('');
+    setSelectedUsers([]);
+    setSearchResult([]);
   }
+
+
+  // select/add user to group
+  const addUserToGroup = (userToAdd) => {
+    const userExists = selectedUsers.some((user) => user._id === userToAdd._id);
+
+    if(userExists){
+      toast.warn('User is already added to group', {
+        autoClose: 2000
+      });
+    }else{
+      setSelectedUsers([...selectedUsers, userToAdd]);
+    }
+  }
+
+
+  // remove selected user from group
+  const removeUser = (userToRemove) => {
+    setSelectedUsers(selectedUsers.filter((user) => user._id !== userToRemove._id));
+  }
+
+
+  // handle creating mew group chat
+  const createNewGroupChat = async () => {
+    const chatDetails = {
+      name: groupChatName,
+      users: JSON.stringify(selectedUsers.map((user) => user._id))
+    }
+
+    if(!chatDetails.name || JSON.parse(chatDetails.users).length < 2){
+      toast.warn('Please provide Group Name with minimum 2 users', {
+        autoClose: 2000
+      });
+      return;
+    }
+
+    setLoading1(true);
+    await dispatch(createeGroupChat(chatDetails));
+    await dispatch(fetchUserChats());
+    setLoading1(false);
+    await closeModal();
+    
+    setGroupChatName('');
+    setSearch('');
+    setSearchResult([]);
+    setSelectedUsers([]);
+  }
+
 
   return (
     <>
@@ -115,6 +192,7 @@ function CreateGroupChatModal() {
                                     className='inline-flex items-center p-0.5 ml-2 text-sm text-blue-400 bg-transparent rounded-sm hover:bg-blue-200 hover:text-blue-900 dark:hover:bg-blue-800 dark:hover:text-blue-300'
                                     data-dismiss-target='#badge-dismiss-default'
                                     aria-label='Remove'
+                                    onClick={() => removeUser(user)}
                                   >
                                     <svg
                                       aria-hidden='true'
@@ -127,7 +205,7 @@ function CreateGroupChatModal() {
                                         fillRule='evenodd'
                                         d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
                                         clipRule='evenodd'
-                                      />
+                                      ></path>
                                     </svg>
                                     <span className='sr-only'>Remove Badge</span>
                                   </button>
@@ -149,7 +227,7 @@ function CreateGroupChatModal() {
                                 <>
                                   {searchResult.length !== 0 ? 
                                     (
-                                      searchResult.map((user, index) => (
+                                      searchResult.map((user) => (
                                         <li key={user._id} className='px-2 py-2'>
                                           <div className='search-user-box relative flex justify-between items-center'>
                                             <div className='profile absolute left-0'>
@@ -166,7 +244,10 @@ function CreateGroupChatModal() {
                                               </h2>
                                             </div>
 
-                                            <div className='user-add flex justify-center items-center cursor-pointer rounded-full p-2'>
+                                            <div
+                                              className='user-add flex justify-center items-center cursor-pointer rounded-full p-2'
+                                              onClick={() => addUserToGroup(user)}
+                                            >
                                               <AiOutlinePlus />
                                             </div>
                                           </div>
@@ -191,6 +272,7 @@ function CreateGroupChatModal() {
                     </div>
                   </div>
 
+                  {/* Modal footer */}
                   <div className='modal-footer flex justify-end mt-3'>
                     <button
                       type='button'
@@ -203,8 +285,9 @@ function CreateGroupChatModal() {
                     <button
                       type='button'
                       className='btn bg-cyan-500 rounded px-4'
+                      onClick={createNewGroupChat}
                     >
-                      {loading ? 'Creating...' : 'Create Group'}
+                      {loading1 ? 'Creating...' : 'Create Group'}
                     </button>
                   </div>
                 </Dialog.Panel>

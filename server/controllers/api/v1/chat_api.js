@@ -125,13 +125,14 @@ module.exports.createGroupChat = async function(req, res){
         }
 
         // convert encoded string to array and add current user
-        const users = groupUsers.split(' ');
+        // const users = groupUsers.split(' ');
+        const users = JSON.parse(groupUsers);
         users.push(req.user._id);
 
         // check for min. users in group
-        if(users.length < 3){
+        if(users.length < 2){
             return res.status(400).json({
-                message: 'A minimum of 3 users are require to created a group',
+                message: 'A minimum of 2 users are required to created a group',
                 success: false
             });
         }

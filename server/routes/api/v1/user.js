@@ -14,7 +14,7 @@ const upload = multer({storage});
 // route the requets
 router.post('/register', usersAPI.createUser);
 router.post('/create-session', usersAPI.createSession);
-router.get('/search-users/:search', passport.authenticate('jwt', {session: false}), usersAPI.searchUsers);
+router.get('/search-users', passport.authenticate('jwt', {session: false}), usersAPI.searchUsers);
 router.get('/get-user-detail', passport.authenticate('jwt', {session: false}), usersAPI.getUser);
 router.put('/update-profile', passport.authenticate('jwt', {session: false}), usersAPI.updateProfile);
 router.post('/resend/verification-email', usersAPI.resendVerificationEmail);

@@ -2,12 +2,22 @@ import { createGroupChat, fetchChats, searchUsers } from "../../api/chatApi";
 
 
 // action types
+export const LOADING_USERS = 'LOADING_USERS';
 export const FETCH_USER_CHATS = 'FETCH_USER_CHATS';
 export const SELECT_CHAT = 'SELECT_CHAT';
 export const FETCH_USERS = 'FETCH_USERS';
 export const CLEAR_FETCHED_USERS = 'CLEAR_FETCHED_USERS';
 export const CREATE_GROUP_CHAT = 'CREATE_GROUP_CHAT';
 export const ERROR = 'ERROR';
+
+
+// action creator to set loading state(load while fetching users)
+export const loadingUsers = (state) => {
+  return {
+    type: LOADING_USERS,
+    payload: state
+  }
+}
 
 
 // action creator to fetch related chats for a user
@@ -34,7 +44,9 @@ export const selectChat = (selectedChat) => async (dispatch) => {
 
 // action creator to fetch users based on search text(creating one-one/group chat)
 export const fetchUsers = (search) => async (dispatch) => {
+  dispatch(loadingUsers(true));
   const response = await searchUsers(search);
+  dispatch(loadingUsers(false));
 
   if(response.success === true){
     return dispatch({ type: FETCH_USERS, payload: response.data.users });

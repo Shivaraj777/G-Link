@@ -114,11 +114,11 @@ module.exports.createSession = async function(req, res){
 module.exports.searchUsers = async function(req, res){
     try{
         // query -> returns users whose name and email matches keyword
-        const keyword = req.params.search
+        const keyword = req.query.search
             ? {
                 $or: [
-                    { name: { $regex: req.params.search, $options: 'i' }},
-                    { email: { $regex: req.params.search, $options: 'i' }}
+                    { name: { $regex: req.query.search, $options: 'i' }},
+                    { email: { $regex: req.query.search, $options: 'i' }}
                 ]
             }
             : {};

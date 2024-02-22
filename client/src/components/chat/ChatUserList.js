@@ -24,7 +24,7 @@ function ChatUserList(props) {
                       .toLowerCase()
                       .includes(searchQuery.toLowerCase());
                 })
-                .map((chat, index) => (
+                .map((chat) => (
                   <li
                     key={chat._id}
                     id='chat-box-wrapper'
@@ -75,22 +75,22 @@ function ChatUserList(props) {
                           <div className='flex -space-x-4'>
                             <img
                               className='w-8 h-8 border-2 bg-white  rounded-full  hover:z-10'
-                              src={chat[index].users[0].profile}
+                              src={chat.users[0].profile}
                               alt=''
                             />
                             <img
                               className='w-8 h-8 border-2 bg-white  rounded-full  hover:z-10'
-                              src={chat[index].users[1].profile}
+                              src={chat.users[1].profile}
                               alt=''
                             />
                             <img
                               className='w-8 h-8 border-2 bg-white  rounded-full  hover:z-10'
-                              src={chat[index].users[2].profile}
+                              src={chat.users[2].profile}
                               alt=''
                             />
-                            {chat[index].users.length > 3 ? (
+                            {chat.users.length > 3 ? (
                               <div className='flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600'>
-                                {`+${chat[index].users.length - 3}`}
+                                {`+${chat.users.length - 3}`}
                               </div>) : (
                                 <></>
                               )
