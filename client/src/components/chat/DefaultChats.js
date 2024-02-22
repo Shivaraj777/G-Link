@@ -4,6 +4,7 @@ import Searchbar from './Searchbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectChat } from '../../redux/chat/chat.action';
 import ChatUserList from './ChatUserList';
+import CreateGroupChatModal from '../modal/CreateGroupChatModal';
 
 function DefaultChats() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function DefaultChats() {
             setOpenSearchbar={setOpenSearchbar}
             setSearchQuery= {setSearchQuery}
           />
-          {/* Group Modal */}
+          <CreateGroupChatModal />
         </div>
       </div>
 
