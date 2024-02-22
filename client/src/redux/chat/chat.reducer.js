@@ -1,4 +1,4 @@
-import { FETCH_USERS, FETCH_USER_CHATS, SELECT_CHAT } from "./chat.action"
+import { CLEAR_FETCHED_USERS, FETCH_USERS, FETCH_USER_CHATS, SELECT_CHAT } from "./chat.action"
 
 // initialize the state
 const initialState = {
@@ -24,6 +24,12 @@ const chatReducer = (state = initialState, action) => {
       }
 
     case FETCH_USERS:
+      return {
+        ...state,
+        searchedUsers: action.payload
+      }
+
+    case CLEAR_FETCHED_USERS:
       return {
         ...state,
         searchedUsers: action.payload

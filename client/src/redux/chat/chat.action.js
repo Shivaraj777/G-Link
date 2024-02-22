@@ -5,6 +5,7 @@ import { fetchChats, searchUsers } from "../../api/chatApi";
 export const FETCH_USER_CHATS = 'FETCH_USER_CHATS';
 export const SELECT_CHAT = 'SELECT_CHAT';
 export const FETCH_USERS = 'FETCH_USERS';
+export const CLEAR_FETCHED_USERS = 'CLEAR_FETCHED_USERS';
 export const ERROR = 'ERROR';
 
 
@@ -40,3 +41,13 @@ export const fetchUsers = (search) => async (dispatch) => {
     dispatch({ type: ERROR, payload: response.error });
   }
 } 
+
+
+// action creator to clear fetched/searched users
+export const clearFetchedUsers = () => async (dispatch) => {
+  try{
+    dispatch({ type: CLEAR_FETCHED_USERS, payload: [] });
+  }catch(err){
+    dispatch({ type: ERROR, payload: err });
+  }
+}
