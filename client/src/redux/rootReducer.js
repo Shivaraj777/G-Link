@@ -5,6 +5,7 @@ import authReducer from './auth/auth.reducer';
 import tabReducer from './tab/tab.reducer';
 import userReducer from './user/user.reducer';
 import chatReducer from './chat/chat.reducer';
+import chatThemeReducer from './chatTheme/chatTheme.reducer';
 
 // combine reducers
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     chat: chatReducer,
     theme: themeReducer,
+    chatTheme: chatThemeReducer,
     tab: tabReducer
 });
 

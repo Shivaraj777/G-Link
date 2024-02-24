@@ -26,6 +26,10 @@ function App() {
   const { darkThemeEnabled } = useSelector((state) => state.theme);
   const [loading, setLoading] = useState(true);
 
+  // get chat Theme color from store
+  const themeColor = useSelector((state) => state.chatTheme.themeColor);
+  const rgb = themeColor.split(')')[0].split('(')[1];
+
   // initialize AOS
   useEffect(() => {
     AOS.init({
@@ -47,7 +51,7 @@ function App() {
       green: "#4eac6d",
       danger: "#ff4e2b",
       light: "#223645",
-      primaryRgb: "rgb(28, 157, 234)",
+      primaryRgb: `${themeColor}`,
 
       text: {
         primary: "#000000",
@@ -55,6 +59,7 @@ function App() {
       },
 
       rgb: {
+        primary: `${rgb}`,
         secondary: "78,172,109",
         cyan: "28,157,234",
         heading: "0,0,0",
@@ -77,6 +82,7 @@ function App() {
       },
 
       btn: {
+        primary: `${rgb}`,
         secondary: "22 163 74",
         danger: "255, 78, 43",
         light: "#f6f6f9",
@@ -106,7 +112,7 @@ function App() {
       green: "#4eac6d",
       danger: "#ff4e2b",
       light: "#223645",
-      primaryRgb: "rgb(28, 157, 234)",
+      primaryRgb: `${themeColor}`,
 
       text: {
         primary: "#212529",
@@ -114,6 +120,7 @@ function App() {
       },
 
       rgb: {
+        primary: `${rgb}`,
         secondary: "78,172,109",
         cyan: "28,157,234",
         heading: "255,255,255",
@@ -137,6 +144,7 @@ function App() {
       },
 
       btn: {
+        primary: `${rgb}`,
         secondary: "22 163 74",
         danger: "255, 78, 43",
         light: "#25262c",
