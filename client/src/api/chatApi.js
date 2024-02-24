@@ -27,3 +27,14 @@ export const createGroupChat = (chatDetails) => {
     }
   });
 }
+
+
+// api call to create one-one chat
+export const createChat = (userId) => {
+  return customFetch(API_URLs.createChat(), {
+    method: 'POST',
+    body: {
+      userId: userId
+    }
+  });
+}

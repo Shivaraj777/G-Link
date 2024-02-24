@@ -5,7 +5,7 @@ import Spinner from '../../styles/Spinner';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 function Contacts(props) {
-  const { search, searchResult, showResult, usersLoading, handleChange, searchUser } = props;
+  const { search, searchResult, showResult, usersLoading, handleChange, searchUser, handleCreateNewChat } = props;
 
   return (
     <StyledContacts className='contacts-tab dynamic-sidebar'>
@@ -75,7 +75,10 @@ function Contacts(props) {
                               </h2>
                             </div>
 
-                            <div className='user-add flex justify-center items-center cursor-pointer rounded-full p-2'>
+                            <div 
+                              className='user-add flex justify-center items-center cursor-pointer rounded-full p-2'
+                              onClick={() => handleCreateNewChat(user)}
+                            >
                               <AiOutlinePlus title='Add' />
                             </div>
                           </div>

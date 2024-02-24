@@ -1,4 +1,4 @@
-import { createGroupChat, fetchChats, searchUsers } from "../../api/chatApi";
+import { createChat, createGroupChat, fetchChats, searchUsers } from "../../api/chatApi";
 
 
 // action types
@@ -8,6 +8,7 @@ export const SELECT_CHAT = 'SELECT_CHAT';
 export const FETCH_USERS = 'FETCH_USERS';
 export const CLEAR_FETCHED_USERS = 'CLEAR_FETCHED_USERS';
 export const CREATE_GROUP_CHAT = 'CREATE_GROUP_CHAT';
+export const CREATE_CHAT = 'CREATE_CHAT';
 export const ERROR = 'ERROR';
 
 
@@ -76,3 +77,15 @@ export const createeGroupChat = (chatDetails) => async (dispatch) => {
     return dispatch({ type: ERROR, payload: response.error });
   }
 }
+
+
+// action creator to create new one-one chat
+export const createNewChat = (userId) => async (dispatch) => {
+  const response = await createChat(userId);
+
+  if(response.success === true){
+    dispatch({ type: CREATE_CHAT, payload: response.data.chatData });
+  }else{
+    dispatch({ type: ERROR, payload: response.error });
+  }
+} 

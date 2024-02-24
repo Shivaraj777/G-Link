@@ -6,7 +6,8 @@ import Favourite from './Favourite';
 import DefaultChats from './DefaultChats';
 import Contacts from './Contacts';
 import { toast } from 'react-toastify';
-import { clearFetchedUsers, fetchUsers } from '../../redux/chat/chat.action';
+import { clearFetchedUsers, createNewChat, fetchUserChats, fetchUsers } from '../../redux/chat/chat.action';
+import { toggleTab } from '../../redux/tab/tab.action';
 
 function ChatMenu() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function ChatMenu() {
 
   const { tabIndex } = useSelector((state) => state.tab); //get current side panel tab index
   const user = useSelector((state) => state.user.userDetails); // get user details from store
-  const { isLoadingUsers, searchedUsers } = useSelector((state) => state.chat);
+  const { isLoadingUsers, searchedUsers, chats } = useSelector((state) => state.chat);
 
 
   // set user search results for Contacts component
@@ -54,6 +55,28 @@ function ChatMenu() {
     dispatch(fetchUsers(search));
   }
 
+
+  // handle creating a new one-one chat
+  const handleCreateNewChat = async (contactUser) => {
+    const contactExists = chats.some((chat) => chat.users[1]._id === contactUser._id);
+
+    if(contactExists){
+      toast.warn('Contact already exists', {
+        autoClose: 2000
+      });
+      return;
+    }else{
+      toast.success('Contact added successfully', {
+        autoClose: 2000
+      });
+    }
+
+    await dispatch(createNewChat(contactUser._id));
+    await dispatch(fetchUserChats());
+    await dispatch(toggleTab(3));
+  }
+
+
   return (
     <StyledChatMenu className='chat-menu-section'>
       <div className='tab-content'>
@@ -87,6 +110,7 @@ function ChatMenu() {
             showResult={showResult}
             usersLoading={isLoadingUsers}
             searchUser={searchUser}
+            handleCreateNewChat={handleCreateNewChat}
           />
         </div>
 
