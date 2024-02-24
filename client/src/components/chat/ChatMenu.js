@@ -8,6 +8,7 @@ import Contacts from './Contacts';
 import { toast } from 'react-toastify';
 import { clearFetchedUsers, createNewChat, fetchUserChats, fetchUsers } from '../../redux/chat/chat.action';
 import { toggleTab } from '../../redux/tab/tab.action';
+import Settings from './Settings';
 
 function ChatMenu() {
   const dispatch = useDispatch();
@@ -116,6 +117,7 @@ function ChatMenu() {
 
         <div className={tabIndex === 5 ? 'tab-panel active' : 'tab-panel'}>
           {/* Settings component */}
+          <Settings />
         </div>
       </div>
     </StyledChatMenu>
