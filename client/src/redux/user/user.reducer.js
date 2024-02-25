@@ -1,4 +1,4 @@
-import { GET_CURRENT_USER, UPDATE_USER_PROFILE, UPLOAD_PROFILE_PIC } from "./user.action";
+import { CLEAR_USER_STATE, GET_CURRENT_USER, UPDATE_USER_PROFILE, UPLOAD_PROFILE_PIC } from "./user.action";
 
 
 // define the initial state
@@ -25,6 +25,11 @@ const userReducer = (state = initialState, action) => {
     case UPLOAD_PROFILE_PIC:
       return {
         ...state,
+        userDetails: action.payload
+      }
+
+    case CLEAR_USER_STATE:
+      return {
         userDetails: action.payload
       }
 

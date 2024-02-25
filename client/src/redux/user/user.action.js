@@ -4,6 +4,7 @@ import { getUser, updateProfile, uploadProfilePic } from "../../api/usersApi";
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
 export const UPLOAD_PROFILE_PIC = 'UPLOAD_PROFILE_PIC';
+export const CLEAR_USER_STATE = 'CLEAR_USER_STATE';
 export const ERROR = 'ERROR';
 
 
@@ -39,5 +40,15 @@ export const uploadUserProfilePic = (image) => async (dispatch) => {
     return dispatch({ type: UPLOAD_PROFILE_PIC, payload: response.data.user });
   }else{
     return dispatch({ type: ERROR, payload: response.error });
+  }
+}
+
+
+// action creator to clear user state
+export const clearUser = () => async (dispatch) => {
+  try{
+    return dispatch({ type: CLEAR_USER_STATE, payload: {} });
+  }catch(err) {
+    return dispatch({ type: ERROR, payload: err });
   }
 }
