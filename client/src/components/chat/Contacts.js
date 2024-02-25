@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button } from '../../styles/Button';
 import Spinner from '../../styles/Spinner';
 import { AiOutlinePlus } from 'react-icons/ai';
+import InviteUserModal from '../modal/InviteUserModal';
 
 function Contacts(props) {
   const { search, searchResult, showResult, usersLoading, handleChange, searchUser, handleCreateNewChat } = props;
@@ -18,6 +19,7 @@ function Contacts(props) {
         <div className='icon text-right'>
           <Button className='btn p-3 text-white rounded'>
             {/* Invite component */}
+            <InviteUserModal />
           </Button>
         </div>
       </div>
