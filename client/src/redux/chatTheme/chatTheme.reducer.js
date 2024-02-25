@@ -12,7 +12,7 @@ const insitialState = {
 const chatThemeReducer = (state = insitialState, action) => {
   switch(action.type){
     case SET_CHAT_THEME:
-      setItemsInLocalStorage('CHAT_THEME', JSON.stringify(action.paylod));
+      setItemsInLocalStorage('CHAT_THEME', JSON.stringify(action.payload));
       return {
         ...state,
         themeColor: action.payload
