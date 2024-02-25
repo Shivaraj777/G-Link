@@ -6,6 +6,7 @@ import { BiChevronUp } from 'react-icons/bi';
 import { FaCheck } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { chatTheme } from '../../data/chatThemeData';
+import UpdateProfileImage from '../modal/UpdateProfileImage';
 
 function Settings() {
   const themeColor = useSelector((state) => state.chatTheme.themeColor);
@@ -27,7 +28,7 @@ function Settings() {
         <div className='setting-block'>
           <div className='user-profile flex items-center flex-col py-3'>
             {/* Upload profile image component */}
-
+            <UpdateProfileImage />
             <div className='user-name py-4 text-center w-full'>
               <h5 className='text-xl font-medium'>{user.name}</h5>
             </div>
