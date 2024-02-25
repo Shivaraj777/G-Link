@@ -105,7 +105,7 @@ function App() {
   const darkTheme = {
     colors: {
       heading: "rgb(255, 255, 255)",
-      heading2: "rgb(24 24 29)",
+      heading2: "rgb(24, 24, 29)",
       white: "#ffffff",
       black: "#000000",
       cyan: "#1ca9fe",

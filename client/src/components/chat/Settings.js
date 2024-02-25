@@ -4,16 +4,24 @@ import styled from 'styled-components';
 import { BsCircleHalf } from 'react-icons/bs';
 import { BiChevronUp } from 'react-icons/bi';
 import { FaCheck } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { chatTheme } from '../../data/chatThemeData';
 import UpdateProfileImage from '../modal/UpdateProfileImage';
 import EditProfile from '../modal/EditProfile';
+import { setChatTheme } from '../../redux/chatTheme/chatTheme.action';
 
 function Settings() {
+  const dispatch = useDispatch();
   const themeColor = useSelector((state) => state.chatTheme.themeColor);
   const [color, setColor] = useState(themeColor);
 
   const user = useSelector((state) => state.user.userDetails);
+
+  // update chat theme
+  const updateTheme = (color) => {
+    setColor(color);
+    dispatch(setChatTheme(color));
+  } 
 
   return (
     <Wrapper className='setting-tab dynamic-sidebar'>
@@ -60,14 +68,16 @@ function Settings() {
                       />
                     </Disclosure.Button>
 
-                    <Disclosure.Panel className='isclosure-Panel pt-2 pb-2 text-sm'>
+                    <Disclosure.Panel className='disclosure-Panel pt-2 pb-2 text-sm'>
                       <div className='h-full flex justify-start items-center w-full'>
                         {chatTheme.map((theme) => (
                           <button 
                             key={theme.id} 
                             className={color === theme.color ? 'btn-style rounded-full active flex justify-center items-center' : 'btn-style rounded-full flex justify-center items-center'}
+                            style={{ backgroundColor: theme.color }}
+                            onClick={() => updateTheme(theme.color)}
                           >
-                            {color === theme.color ? <FaCheck className='checkStyl' /> : null}
+                            {color === theme.color ? <FaCheck className='checkStyle' /> : null}
                           </button>
                         ))}
                       </div>

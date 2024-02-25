@@ -9,7 +9,7 @@ export const chatTheme = [
   },
   {
     "id": 3,
-    "color": "rgb(232,62,140)"
+    "color": "rgb(232, 62, 140)"
   },
   {
     "id": 4,
@@ -19,4 +19,4 @@ export const chatTheme = [
     "id": 5,
     "color": "rgb(255, 128, 60)"
   }
-]
+];
