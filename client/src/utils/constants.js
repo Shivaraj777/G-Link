@@ -15,6 +15,7 @@ export const API_URLs = {
   getUser: () => `${API_ROOT}/user/get-user-detail`,
   searchUsers: (search) => `${API_ROOT}/user/search-users?search=${search}`,
   uploadProfilePic: () => `${API_ROOT}/user/upload/profile-image`,
+  updateProfile: () => `${API_ROOT}/user/update-profile`,
   fetchChats: () => `${API_ROOT}/chat/`,
   createGroupChat: () => `${API_ROOT}/chat/create-group`,
   createChat: () => `${API_ROOT}/chat`

@@ -7,6 +7,7 @@ import { FaCheck } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { chatTheme } from '../../data/chatThemeData';
 import UpdateProfileImage from '../modal/UpdateProfileImage';
+import EditProfile from '../modal/EditProfile';
 
 function Settings() {
   const themeColor = useSelector((state) => state.chatTheme.themeColor);
@@ -38,6 +39,7 @@ function Settings() {
         <div className='setting-block'>
           <div className='profile-setting w-full pt-4'>
             {/* Edit Profile component */}
+            <EditProfile />
           </div>
         </div>
 

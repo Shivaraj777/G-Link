@@ -11,6 +11,18 @@ export const getUser = () => {
 }
 
 
+// api call to update user profile information
+export const updateProfile = (userDetails) => {
+  return customFetch(API_URLs.updateProfile(), {
+    method: 'PUT',
+    body: {
+      name: userDetails.name,
+      about: userDetails.about
+    }
+  });
+}
+
+
 // api call to upload user profile picture
 export const uploadProfilePic = async (image) => {
   try{
