@@ -5,17 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectChat } from '../../redux/chat/chat.action';
 import ChatUserList from './ChatUserList';
 import CreateGroupChatModal from '../modal/CreateGroupChatModal';
+import { fetchChatMessages } from '../../redux/message/message.action';
 
 function DefaultChats() {
   const dispatch = useDispatch();
   const [openSearchbar, setOpenSearchbar] = useState(false); //state to enable/disable search bar in chat window
   const [searchQuery, setSearchQuery] = useState(''); //state to manage search text
   const [chatList, setChatList] = useState([]); //state to manage logged-in user chats
-  const [selectedChat, setSelectedChat] = useState({}); //state to manage the current selected chat
+  const [selectedChat, setSelectedChat] = useState(null); //state to manage the current selected chat
 
   const chats = useSelector((state) => state.chat.chats); // get all chats for current user from store
   const loggedUser = useSelector((state) => state.user.userDetails);
-  // console.log(chats);
+  // console.log(selectedChat);
 
 
   // set user chats
@@ -27,6 +28,10 @@ function DefaultChats() {
   // change selected chat
   useEffect(() => {
     dispatch(selectChat(selectedChat));
+
+    if(selectedChat !== null){
+      dispatch(fetchChatMessages(selectedChat));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChat]);
 
