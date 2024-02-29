@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getSender, getSenderPic, isMyMessage } from '../../helperFunction/chat.helper';
 import Spinner from '../../styles/Spinner';
@@ -9,23 +9,40 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 import { BiSmile } from 'react-icons/bi';
 import { IoMdSend } from 'react-icons/io';
 import { useSelector } from 'react-redux';
+import EmojiPicker from 'emoji-picker-react';
+
 
 function ChatWindow() {
+  const inputRef = createRef();  // store reference of message input bar
   const [isOpen, setIsOpen] = useState(false);
   const [activeChat, setActiveChat] = useState(null);
   const [chatMessages, setChatMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [cursorPosition, setCursorPosition] = useState(0); // state to manage cursor position in message input bar
   const [loading, setLoading] = useState(false);
 
   // get global state from store
   const loggedUser = useSelector((state) => state.user.userDetails);
   const selectedChat = useSelector((state) => state.chat.selectedChat);
+  const { darkThemeEnabled } = useSelector((state) => state.theme);
 
 
   // handle change in typed message
   const handleChange = (e) => {
     setNewMessage(e.target.value);
   } 
+
+
+  // handle selecting emojis from picker
+  const pickEmoji = (emojiData, event) => {
+    const ref = inputRef.current;
+    ref.focus();
+    const start = newMessage.substring(0, ref.selectionStart);
+    const end = newMessage.substring(ref.selectionStart);
+    let msg = start + emojiData.emoji + end;
+    setNewMessage(msg);
+    setCursorPosition(start.length + emojiData.emoji.length);
+  }
 
 
   // handle opening a chat
@@ -51,6 +68,15 @@ function ChatWindow() {
     document.getElementById("user-chat").classList.remove("user-chat-show");
     document.getElementById("user-chat").classList.add("fadeInRight2");
   }
+
+
+  // update cursor position in message input box
+  useEffect(() => {
+    if(inputRef.current !== null){
+      inputRef.current.selectionEnd = cursorPosition;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cursorPosition]);
 
 
   return (
@@ -214,7 +240,7 @@ function ChatWindow() {
                             <Transition
                               as={Fragment}
                               enter='transition ease-out duration-100'
-                              enterFrom='transform opacity-0 scale-95'
+                              // enterFrom='transform opacity-0 scale-95'
                               enterTo='transform opacity-100 scale-100'
                               leave='transition ease-in duration-75'
                               leaveFrom='transform opacity-100 scale-100'
@@ -222,6 +248,12 @@ function ChatWindow() {
                             >
                               <Menu.Items className='emoji-picker'>
                                 {/* Emoji Picker */}
+                                <EmojiPicker
+                                  emojiStyle='facebook'
+                                  theme={darkThemeEnabled ? 'dark' : 'light' }
+                                  lazyLoadEmojis={true}
+                                  onEmojiClick={pickEmoji}
+                                />
                               </Menu.Items>
                             </Transition>
                           </Menu>
@@ -237,6 +269,7 @@ function ChatWindow() {
                           className='w-full py-3 px-5 focus:outline-none'
                           value={newMessage}
                           onChange={handleChange}
+                          ref={inputRef}
                         />
                       </div>
 
