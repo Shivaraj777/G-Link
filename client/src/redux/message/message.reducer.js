@@ -1,4 +1,4 @@
-import { FETCH_CHAT_MESSAGES, SEND_MESSAGE } from "./message.action"
+import { FETCH_CHAT_MESSAGES, SEND_MESSAGE, UPDATE_FETCH_CHAT_MESSAGES } from "./message.action"
 
 // initialize the state
 const initialState = {
@@ -20,6 +20,12 @@ const messageReducer = (state = initialState, action) => {
       return {
         ...state,
         createdMessage: action.payload
+      }
+
+    case UPDATE_FETCH_CHAT_MESSAGES:
+      return {
+        ...state,
+        chatMessages: [...state.chatMessages, action.payload]
       }
 
     default:

@@ -3,6 +3,7 @@ import { getChatMessages, sendMessage } from "../../api/messageAPI";
 // action types
 export const FETCH_CHAT_MESSAGES = 'FETCH_CHAT_MESSAGES';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const UPDATE_FETCH_CHAT_MESSAGES = 'UPDATE_FETCH_CHAT_MESSAGES';
 export const ERROR = 'ERROR';
 
 
@@ -26,5 +27,19 @@ export const sendMessagee = (messageData) => async (dispatch) => {
     return dispatch({ type: SEND_MESSAGE, payload: response.data.newMessage });
   }else{
     return dispatch({ type: ERROR, payload: response.error });
+  }
+}
+
+
+// action creator to fetch updated messages after sender sends a message
+export const updateFetchChatMessages = (messageReceived) => async (dispatch) => {
+  try{
+    if(!messageReceived.sender){
+      return;
+    }
+
+    dispatch({ type: UPDATE_FETCH_CHAT_MESSAGES, payload: messageReceived });
+  }catch(err){
+    return dispatch({ type: ERROR, payload: err });
   }
 }
