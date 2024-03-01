@@ -24,7 +24,9 @@ function ChatWindow() {
   // get global state from store
   const loggedUser = useSelector((state) => state.user.userDetails);
   const selectedChat = useSelector((state) => state.chat.selectedChat);
+  const allMessages = useSelector((state) => state.message.chatMessages);
   const { darkThemeEnabled } = useSelector((state) => state.theme);
+  console.log(allMessages);
 
 
   // handle change in typed message
@@ -77,6 +79,12 @@ function ChatWindow() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursorPosition]);
+
+
+  // update chat messages from store
+  useEffect(() => {
+    setChatMessages(allMessages);
+  }, [allMessages]);
 
 
   return (
