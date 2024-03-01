@@ -19,7 +19,8 @@ export const API_URLs = {
   fetchChats: () => `${API_ROOT}/chat/`,
   createGroupChat: () => `${API_ROOT}/chat/create-group`,
   createChat: () => `${API_ROOT}/chat`,
-  getChatMessages: (selectedChat) => `${API_ROOT}/message/${selectedChat._id}`
+  getChatMessages: (selectedChat) => `${API_ROOT}/message/${selectedChat._id}`,
+  sendMessage: () => `${API_ROOT}/message/send-message`
 }
 
 // G-Link access token

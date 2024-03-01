@@ -8,11 +8,13 @@ import { Button } from '../../styles/Button';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
 import { BiSmile } from 'react-icons/bi';
 import { IoMdSend } from 'react-icons/io';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EmojiPicker from 'emoji-picker-react';
+import { sendMessagee } from '../../redux/message/message.action';
 
 
 function ChatWindow() {
+  const dispatch = useDispatch();
   const inputRef = createRef();  // store reference of message input bar
   const [isOpen, setIsOpen] = useState(false);
   const [activeChat, setActiveChat] = useState(null);
@@ -69,6 +71,22 @@ function ChatWindow() {
     document.getElementById("user-chat").classList.remove("fadeInRight");
     document.getElementById("user-chat").classList.remove("user-chat-show");
     document.getElementById("user-chat").classList.add("fadeInRight2");
+  }
+
+
+  // handle sending message
+  const handleSendMessage = async () => {
+    if(!newMessage){
+      return;
+    }
+
+    const messageData = {
+      content: newMessage,
+      chatId: activeChat._id
+    }
+
+    dispatch(sendMessagee(messageData));
+    setNewMessage('');
   }
 
 
@@ -168,66 +186,62 @@ function ChatWindow() {
                           <>
                             {chatMessages.map((message, index) => 
                               isMyMessage(loggedUser, message) && message.sender.profile ? (
-                                <>
-                                  <li key={index} className='chat-list right'>
+                                <li key={index} className='chat-list right'>
+                                  <div className='conversation-list'>
+                                    <div className='chat-avatar mr-4'>
+                                      <img 
+                                        src={message.sender.profile}
+                                        alt=''
+                                        className='rounded-full'
+                                      />
+                                    </div>
+                                    <div className='user-chat-content'>
+                                      <div className='flex mb-3 justify-end'>
+                                        <div className='chat-wrap-content'>
+                                          <span className='mb-0 chat-content text-sm font-medium text-left'>
+                                            {message.content}
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div className='conversation-name'>
+                                        <small className='mb-0'>
+                                          {moment(message.createdAt).format('DD/MMM/YYYY , h:mm a').toUpperCase()}
+                                        </small>
+                                        <span className='ml-2 text-xs user-name'>
+                                          you
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>) : (
+                                  <li key={index} className='chat-list'>
                                     <div className='conversation-list'>
                                       <div className='chat-avatar mr-4'>
-                                        <img 
+                                        <img
                                           src={message.sender.profile}
                                           alt=''
                                           className='rounded-full'
                                         />
                                       </div>
                                       <div className='user-chat-content'>
-                                        <div className='flex mb-3 justify-end'>
+                                        <div className='flex mb-3'>
                                           <div className='chat-wrap-content'>
-                                            <span className='mb-0 chat-content text-sm font-medium text-left'>
+                                            <span className='mb-0  text-sm font-medium text-left'>
                                               {message.content}
                                             </span>
                                           </div>
                                         </div>
                                         <div className='conversation-name'>
-                                          <small className='mb-0'>
+                                          <span className='ml-2 text-xs user-name'>
+                                            {message.sender.name}
+                                          </span>
+                                          <small className='ml-2 mb-0'>
                                             {moment(message.createdAt).format('DD/MMM/YYYY , h:mm a').toUpperCase()}
                                           </small>
-                                          <span className='ml-2 text-xs user-name'>
-                                            you
-                                          </span>
                                         </div>
                                       </div>
                                     </div>
                                   </li>
-                                </>) : (
-                                  <>
-                                    <li key={index} className='chat-list'>
-                                      <div className='conversation-list'>
-                                        <div className='chat-avatar mr-4'>
-                                          <img
-                                            src={message.sender.profile}
-                                            alt=''
-                                            className='rounded-full'
-                                          />
-                                        </div>
-                                        <div className='user-chat-content'>
-                                          <div className='flex mb-3'>
-                                            <div className='chat-wrap-content'>
-                                              <span className='mb-0  text-sm font-medium text-left'>
-                                                {message.content}
-                                              </span>
-                                            </div>
-                                          </div>
-                                          <div className='conversation-name'>
-                                            <span className='ml-2 text-xs user-name'>
-                                              {message.sender.name}
-                                            </span>
-                                            <small className='ml-2 mb-0'>
-                                              {moment(message.createdAt).format('DD/MMM/YYYY , h:mm a').toUpperCase()}
-                                            </small>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </li>
-                                  </>
                                 )
                             )}
                             <div /*ref={messageEndRef}*/></div>
@@ -282,7 +296,10 @@ function ChatWindow() {
                       </div>
 
                       {/* send button */}
-                      <div className='chat-input-links ml-2'>
+                      <div 
+                        className='chat-input-links ml-2'
+                        onClick={handleSendMessage}
+                      >
                         <div className='links-list-items ml-5'>
                           <Button className='btn submit-btn flex justify-center items-center'>
                             <IoMdSend />

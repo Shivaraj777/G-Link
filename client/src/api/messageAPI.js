@@ -7,3 +7,15 @@ export const getChatMessages = (selectedChat) => {
     method: 'GET'
   });
 }
+
+
+// api call to send a message for a particular chat
+export const sendMessage = (messageData) => {
+  return customFetch(API_URLs.sendMessage(), {
+    method: 'POST',
+    body: {
+      content: messageData.content,
+      chatId: messageData.chatId
+    }
+  });
+}
