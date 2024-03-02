@@ -1,4 +1,4 @@
-import React, { Fragment, createRef, useEffect, useState } from 'react';
+import React, { Fragment, createRef, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { getSender, getSenderPic, isMyMessage } from '../../helperFunction/chat.helper';
 import Spinner from '../../styles/Spinner';
@@ -21,6 +21,7 @@ let selectedChatCompare; // variable to check if received message is part of sel
 function ChatWindow() {
   const dispatch = useDispatch();
   const inputRef = createRef();  // store reference of message input bar
+  const messageEndRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [activeChat, setActiveChat] = useState(null); // state to manage current selected chat
   const [chatMessages, setChatMessages] = useState([]); // state to manage messages for a chat
@@ -212,6 +213,13 @@ function ChatWindow() {
   }, [createdMessage]);
 
 
+  // handle automatic scroll to the latest message in chat window
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({
+      behaviour: 'smooth'
+    });
+  }, [chatMessages, newMessage]);
+
 
   return (
     <Wrapper id='user-chat'>
@@ -352,7 +360,7 @@ function ChatWindow() {
                                   </li>
                                 )
                             )}
-                            <div /*ref={messageEndRef}*/></div>
+                            <div ref={messageEndRef}></div>
                           </>
                         )
                       }
