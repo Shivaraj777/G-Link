@@ -13,6 +13,7 @@ import EmojiPicker from 'emoji-picker-react';
 import { sendMessagee, updateFetchChatMessages } from '../../redux/message/message.action';
 import io from 'socket.io-client';
 import { SERVER_ACCESS_BASE_URL } from '../../utils';
+import DropDown from './DropDown';
 
 let socket;
 let selectedChatCompare; // variable to check if received message is part of selected chat
@@ -295,6 +296,7 @@ function ChatWindow() {
                       <div className='flex items-center'>
                         <div className='dropdown relative'>
                           {/* Dropdown component */}
+                          <DropDown openModal={openModal} />
                         </div>
                       </div>
                     </div>
