@@ -1,9 +1,10 @@
-import { FETCH_CHAT_MESSAGES, SEND_MESSAGE, UPDATE_FETCH_CHAT_MESSAGES } from "./message.action"
+import { FETCH_CHAT_MESSAGES, SEND_MESSAGE, TOGGLE_SHOW_LOADING, UPDATE_FETCH_CHAT_MESSAGES } from "./message.action"
 
 // initialize the state
 const initialState = {
   chatMessages: [],
-  createdMessage: {}
+  createdMessage: {},
+  isLoading: false
 }
 
 
@@ -26,6 +27,12 @@ const messageReducer = (state = initialState, action) => {
       return {
         ...state,
         chatMessages: [...state.chatMessages, action.payload]
+      }
+
+    case TOGGLE_SHOW_LOADING: 
+      return {
+        ...state,
+        isLoading: action.payload
       }
 
     default:

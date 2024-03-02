@@ -4,12 +4,15 @@ import { getChatMessages, sendMessage } from "../../api/messageAPI";
 export const FETCH_CHAT_MESSAGES = 'FETCH_CHAT_MESSAGES';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const UPDATE_FETCH_CHAT_MESSAGES = 'UPDATE_FETCH_CHAT_MESSAGES';
+export const TOGGLE_SHOW_LOADING = 'TOGGLE_SHOW_LOADING';
 export const ERROR = 'ERROR';
 
 
 // action creator to fetch all the messages for a chat
 export const fetchChatMessages = (selectedChat) => async (dispatch) => {
+  dispatch(toggleShowLoading(true));
   const response = await getChatMessages(selectedChat);
+  dispatch(toggleShowLoading(false));
 
   if(response.success === true){
     return dispatch({ type: FETCH_CHAT_MESSAGES, payload: response.data.messages });
@@ -42,5 +45,14 @@ export const updateFetchChatMessages = (messageReceived) => async (dispatch) => 
     dispatch({ type: UPDATE_FETCH_CHAT_MESSAGES, payload: messageReceived });
   }catch(err){
     return dispatch({ type: ERROR, payload: err });
+  }
+}
+
+
+// action creator to toggle loading state
+export const toggleShowLoading = (state) => {
+  return {
+    type: TOGGLE_SHOW_LOADING,
+    payload: state
   }
 }

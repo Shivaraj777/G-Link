@@ -30,7 +30,6 @@ function ChatWindow() {
   const [cursorPosition, setCursorPosition] = useState(0); // state to manage cursor position in message input bar
   const [socketConnected, setSocketConnected] = useState(false); // state to manage socket connection
   const [isTyping, setIsTyping] = useState(false); // state to manage message typing
-  const [loading, setLoading] = useState(false);
   const [count, setCount] = useState(0);
 
   // get global state from store
@@ -39,7 +38,8 @@ function ChatWindow() {
   const allMessages = useSelector((state) => state.message.chatMessages);
   const createdMessage = useSelector((state) => state.message.createdMessage); // newly created message from store
   const { darkThemeEnabled } = useSelector((state) => state.theme);
-  console.log(isTyping);
+  const loading = useSelector((state) => state.message.isLoading);
+  // console.log(isTyping);
 
 
   // handle selecting emojis from picker
