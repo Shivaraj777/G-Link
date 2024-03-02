@@ -7,12 +7,21 @@ import moment from 'moment';
 function ChatUserList(props) {
   const { searchQuery, openSearchbar, chatList, loggedUser, selectedChat, setSelectedChat } = props;
 
+  /* mobile view: display chat window to view messages */
+  const showChatWindow = () => {
+    document
+      .getElementById("user-chat")
+      .classList.add("user-chat-show", "fadeInRight");
+    document.getElementById("user-chat").classList.remove("fadeInRight2");
+  };
+
+
   return (
     <Wrapper>
       <ul className='chat-main h-full overflow-x-hidden overflow-y-scroll'>
         {chatList.length !== 0 ? (
           <>
-            <div className='mb-4'>
+            <div className='mb-4' onClick={showChatWindow}>
               {chatList
                 .filter((chat) => {
                   return searchQuery.toLowerCase() === '' || openSearchbar === false

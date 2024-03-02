@@ -72,11 +72,20 @@ function ChatWindow() {
   }
 
 
-  const hideUserChat = () => {
+  /* mobile-view: hide chat window */
+  const hideChatWindow = () => {
     document.getElementById("user-chat").classList.remove("fadeInRight");
     document.getElementById("user-chat").classList.remove("user-chat-show");
     document.getElementById("user-chat").classList.add("fadeInRight2");
   }
+
+  /* mobile-view: remove/deselect active chat */
+  const closeChat = () => {
+    const element = document.querySelectorAll("#chat-box-wrapper");
+    element.forEach((element) => {
+      element.classList.remove("active");
+    });
+  };
 
 
   /* 
@@ -248,9 +257,9 @@ function ChatWindow() {
                       <div className='flex items-center justify-center'>
                         <div 
                           className='arrow-icon ml-5 mr-5 cursor-pointer text-2xl p-2 rounded-full'
-                          onClick={hideUserChat}
+                          onClick={hideChatWindow}
                         >
-                          <MdOutlineArrowBackIos />
+                          <MdOutlineArrowBackIos onClick={closeChat} />
                         </div>
 
                         <div className='flex items-center cursor-pointer' onClick={openModal}>
