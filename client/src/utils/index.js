@@ -4,4 +4,9 @@ import { getItemsFromLocalStorage, setItemsInLocalStorage } from './localStorage
 import { verifyToken } from './verifyToken';
 
 export * from './constants';
-export { getFormBody, getItemsFromLocalStorage, setItemsInLocalStorage, verifyToken };
+export { 
+    getFormBody, 
+    getItemsFromLocalStorage, 
+    setItemsInLocalStorage, 
+    verifyToken
+};

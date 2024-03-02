@@ -26,3 +26,5 @@ export const API_URLs = {
 // G-Link access token
 export const ACCESS_TOKEN_KEY = '__glink_token__';
 
+export const SERVER_ACCESS_BASE_URL = 'http://localhost:8080';
+

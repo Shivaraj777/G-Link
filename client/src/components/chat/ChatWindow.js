@@ -10,35 +10,39 @@ import { BiSmile } from 'react-icons/bi';
 import { IoMdSend } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import EmojiPicker from 'emoji-picker-react';
-import { sendMessagee } from '../../redux/message/message.action';
+import { sendMessagee, updateFetchChatMessages } from '../../redux/message/message.action';
+import io from 'socket.io-client';
+import { SERVER_ACCESS_BASE_URL } from '../../utils';
+
+let socket;
+let selectedChatCompare; // variable to check if received message is part of selected chat
 
 
 function ChatWindow() {
   const dispatch = useDispatch();
   const inputRef = createRef();  // store reference of message input bar
   const [isOpen, setIsOpen] = useState(false);
-  const [activeChat, setActiveChat] = useState(null);
-  const [chatMessages, setChatMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+  const [activeChat, setActiveChat] = useState(null); // state to manage current selected chat
+  const [chatMessages, setChatMessages] = useState([]); // state to manage messages for a chat
+  const [newMessage, setNewMessage] = useState('');  // state to manage typed new message
+  const [user, setUser] = useState(); // state to manage chat users
   const [cursorPosition, setCursorPosition] = useState(0); // state to manage cursor position in message input bar
+  const [socketConnected, setSocketConnected] = useState(false); // state to manage socket connection
+  const [isTyping, setIsTyping] = useState(false); // state to manage message typing
   const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
 
   // get global state from store
   const loggedUser = useSelector((state) => state.user.userDetails);
   const selectedChat = useSelector((state) => state.chat.selectedChat);
   const allMessages = useSelector((state) => state.message.chatMessages);
+  const createdMessage = useSelector((state) => state.message.createdMessage); // newly created message from store
   const { darkThemeEnabled } = useSelector((state) => state.theme);
-  console.log(allMessages);
-
-
-  // handle change in typed message
-  const handleChange = (e) => {
-    setNewMessage(e.target.value);
-  } 
+  console.log(isTyping);
 
 
   // handle selecting emojis from picker
-  const pickEmoji = (emojiData, event) => {
+  const pickEmoji = (emojiData, _event) => {
     const ref = inputRef.current;
     ref.focus();
     const start = newMessage.substring(0, ref.selectionStart);
@@ -74,9 +78,57 @@ function ChatWindow() {
   }
 
 
+  /* 
+    sort users to state
+    user = [...other users, loggedUser]
+  */
+  const setUserId = () => {
+    if(loggedUser._id === activeChat?.users[0]._id){
+      const arr = activeChat.users.reverse();
+      setUser(arr);
+    }else{
+      setUser(activeChat?.users);
+    }
+  }
+
+  useEffect(() => {
+    setUserId();
+  });
+
+
+  // handle change in typed message
+  const handleChange = (e) => {
+    setNewMessage(e.target.value);
+
+    // typing Indicator
+    if(!socketConnected){
+      return;
+    }
+
+    if(!isTyping){
+      setIsTyping(true);
+      socket.emit('typing', user[0]._id);
+      console.log(isTyping);
+    }
+
+    let lastTypingTime = new Date().getTime();
+    let timerLength = 3000;
+    setTimeout(() => {
+      let timeNow = new Date().getTime();
+      let timeDiff = timeNow - lastTypingTime;
+
+      if(timeDiff >= timerLength && isTyping){
+        socket.emit('stop_typing', user[0]._id);
+        setIsTyping(false);
+      }
+    }, timerLength);
+  } 
+
+
   // handle sending message
   const handleSendMessage = async () => {
     if(!newMessage){
+      socket.emit('stop_typing', user[0]._id);
       return;
     }
 
@@ -97,12 +149,68 @@ function ChatWindow() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursorPosition]);
+ 
+
+  // setup socket.io connection
+  useEffect(() => {
+    socket = io(SERVER_ACCESS_BASE_URL, {
+      withCredentials: true,
+      extraHeaders: {
+        'my-custom-header': 'abcd'
+      }
+    });
+
+    socket.emit('setup', loggedUser);
+    socket.on('connected', () => setSocketConnected(true));
+    socket.on('typing', () => setIsTyping(true));
+    socket.on('stop_typing', () => setIsTyping(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+  // event handler to update chat messages after receiving message
+  useEffect(() => {
+    const eventHandler = (newMessageReceived) => {
+      if(!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id){
+        console.log('New message received');
+      }else{
+        setTimeout(() => {
+          setCount(count + 1);
+        }, 1000);
+
+        dispatch(updateFetchChatMessages(newMessageReceived));
+      }
+    }
+
+    socket.on('message_received', eventHandler);
+
+    return () => {
+      socket.off('message_received', eventHandler);
+    };
+  });
+
+
+  // to decide whether to send notification to user or render the new msg
+  useEffect(() => {
+    selectedChatCompare = activeChat;
+  }, [activeChat]);
 
 
   // update chat messages from store
   useEffect(() => {
     setChatMessages(allMessages);
+    socket.emit('join_room', activeChat);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allMessages]);
+
+
+  // upadate chatMessages after creating/sending new message
+  useEffect(() => {
+    socket.emit('new_message', createdMessage);
+    dispatch(updateFetchChatMessages(createdMessage));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createdMessage]);
+
 
 
   return (

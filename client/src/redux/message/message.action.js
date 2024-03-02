@@ -38,6 +38,7 @@ export const updateFetchChatMessages = (messageReceived) => async (dispatch) => 
       return;
     }
 
+    // console.log('...');
     dispatch({ type: UPDATE_FETCH_CHAT_MESSAGES, payload: messageReceived });
   }catch(err){
     return dispatch({ type: ERROR, payload: err });

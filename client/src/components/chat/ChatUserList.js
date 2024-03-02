@@ -56,9 +56,9 @@ function ChatUserList(props) {
                           <span className='text-xs'>
                             {chat.latestMessage != null
                               ? `${chat.latestMessage.sender.name === loggedUser.name 
-                                  ? 'You:'
+                                  ? 'You'
                                   : chat.latestMessage.sender.name
-                                }`
+                                }:`
                               : ''
                             }
                           </span>
