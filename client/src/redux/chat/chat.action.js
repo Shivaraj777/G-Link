@@ -5,6 +5,7 @@ import { createChat, createGroupChat, fetchChats, searchUsers } from "../../api/
 export const LOADING_USERS = 'LOADING_USERS';
 export const FETCH_USER_CHATS = 'FETCH_USER_CHATS';
 export const SELECT_CHAT = 'SELECT_CHAT';
+export const CLEAR_SELECTED_CHAT = 'CLEAR_SELECTED_CHAT';
 export const FETCH_USERS = 'FETCH_USERS';
 export const CLEAR_FETCHED_USERS = 'CLEAR_FETCHED_USERS';
 export const CREATE_GROUP_CHAT = 'CREATE_GROUP_CHAT';
@@ -37,6 +38,16 @@ export const fetchUserChats = () => async (dispatch) => {
 export const selectChat = (selectedChat) => async (dispatch) => {
   try{
     return dispatch({ type: SELECT_CHAT, payload: selectedChat });
+  }catch(err){
+    return dispatch({ type: ERROR, payload: err });
+  }
+}
+
+
+// action creator to clear selected chat
+export const clearSelectedChat = () => async (dispatch) => {
+  try{
+    return dispatch({ type: CLEAR_SELECTED_CHAT, payload: {} });
   }catch(err){
     return dispatch({ type: ERROR, payload: err });
   }
