@@ -14,6 +14,7 @@ import { sendMessagee, updateFetchChatMessages } from '../../redux/message/messa
 import io from 'socket.io-client';
 import { SERVER_ACCESS_BASE_URL } from '../../utils';
 import DropDown from './DropDown';
+import UserProfile from '../slideMenu/UserProfile';
 
 let socket;
 let selectedChatCompare; // variable to check if received message is part of selected chat
@@ -462,6 +463,7 @@ function ChatWindow() {
                     >
                       <Dialog.Panel className='dialog-panel z-50  h-screen max-w-sm transform  text-white text-left shadow-xl transition-all'>
                         {/* User Profile */}
+                        <UserProfile closeModal={closeModal} />
                       </Dialog.Panel>
                     </Transition.Child>
                   </div>

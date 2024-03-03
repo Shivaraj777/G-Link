@@ -4,7 +4,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { AiFillInfoCircle, AiFillContacts, AiTwotoneMail } from 'react-icons/ai';
 
 function Profile(props) {
-  const { name, email, about, contact, pic } = props;
+  const { name, email, about, contact, pic, closeModal } = props;
 
   return (
     <StyledProfile className='profile-tab dynamic-sidebar'>
@@ -14,7 +14,10 @@ function Profile(props) {
           <h2>Profile</h2>
           <p>Personal Information</p>
         </div>
-        <div className='icon p-1 flex items-start h-full justify-start cursor-pointer'>
+        <div 
+          className='icon p-1 flex items-start h-full justify-start cursor-pointer'
+          onClick={closeModal}
+        >
           <div className='p-1 bg-white text-black rounded-full'>
             <RxCross2 />
           </div>
