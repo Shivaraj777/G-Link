@@ -3,14 +3,17 @@ import styled from 'styled-components';
 import SidePanel from './SidePanel';
 import ChatMenu from './ChatMenu';
 import ChatWindow from './ChatWindow';
+import NetworkError from '../modal/NetworkError';
 
 function Chat() {
   return (
-    <StyledChat className='flex justify-start w-screen'>
-      <SidePanel />
-      <ChatMenu />
-      <ChatWindow />
-    </StyledChat>
+    <NetworkError>
+      <StyledChat className='flex justify-start w-screen'>
+        <SidePanel />
+        <ChatMenu />
+        <ChatWindow />
+      </StyledChat>
+    </NetworkError>
   )
 }
 

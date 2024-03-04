@@ -5,6 +5,7 @@ export const FETCH_CHAT_MESSAGES = 'FETCH_CHAT_MESSAGES';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const UPDATE_FETCH_CHAT_MESSAGES = 'UPDATE_FETCH_CHAT_MESSAGES';
 export const TOGGLE_SHOW_LOADING = 'TOGGLE_SHOW_LOADING';
+export const SHOW_NETWORK_ERROR = 'SHOW_NETWORK_ERROR';
 export const ERROR = 'ERROR';
 
 
@@ -17,6 +18,7 @@ export const fetchChatMessages = (selectedChat) => async (dispatch) => {
   if(response.success === true){
     return dispatch({ type: FETCH_CHAT_MESSAGES, payload: response.data.messages });
   }else{
+    dispatch(showNetworkError(true));
     return dispatch({ type: ERROR, payload: response.error });
   }
 }
@@ -29,6 +31,7 @@ export const sendMessagee = (messageData) => async (dispatch) => {
   if(response.success === true){
     return dispatch({ type: SEND_MESSAGE, payload: response.data.newMessage });
   }else{
+    dispatch(showNetworkError(true));
     return dispatch({ type: ERROR, payload: response.error });
   }
 }
@@ -44,6 +47,7 @@ export const updateFetchChatMessages = (messageReceived) => async (dispatch) => 
     // console.log('...');
     dispatch({ type: UPDATE_FETCH_CHAT_MESSAGES, payload: messageReceived });
   }catch(err){
+    dispatch(showNetworkError(true));
     return dispatch({ type: ERROR, payload: err });
   }
 }
@@ -56,3 +60,13 @@ export const toggleShowLoading = (state) => {
     payload: state
   }
 }
+
+
+// action creator to display network error
+export const showNetworkError = (state) => {
+  return {
+    type: SHOW_NETWORK_ERROR,
+    payload: state
+  }
+}
+
