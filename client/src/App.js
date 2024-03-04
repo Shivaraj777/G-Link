@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from './components/auth/ResetPassword';
 import Loading from './components/Loading';
 import Verification from './components/Verification';
+import ErrorPage from './pages/ErrorPage';
 
 // dynamic imports
 const HomePage = React.lazy(() => import('./pages/HomePage'));
@@ -192,6 +193,7 @@ function App() {
                 <Route exact path='/user/verification' element={<Verification />} />
                 <Route exact path='/forgot-password' element={<ForgotPassword />} />
                 <Route exact path='/reset-password/:token' element={<ResetPassword />} />
+                <Route exact path='/*' element={<ErrorPage />} />
               </Routes>
             </Suspense>
           )
