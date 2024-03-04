@@ -21,7 +21,7 @@ function AppHeader() {
     <Header className='w-full flex items-center'>
       <div className={header ? 'header active flex justify-between items-center w-full' : 'header flex justify-between items-center w-full'}>
         <div className='hero-section-logo flex justify-center items-center'>
-          <img src='./images/chat.png' alt='G-Link-logo' loading='lazy' className='logo' />
+          <img src='./images/G_Link_Icon.png' alt='G-Link-logo' loading='lazy' className='logo' />
         </div>
         <Navbar />
       </div>

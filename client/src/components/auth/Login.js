@@ -16,7 +16,7 @@ function Login() {
         <div className='h-full py-6'>
           <div className='px-8 flex flex-col justify-center items-center'>
             <div className='logo' style={{ width: 'auto'}}>
-              <img src='/images/chat.png' alt='app-logo' />
+              <img src='/images/G_Link_Icon.png' alt='app-logo' />
             </div>
 
             {/* Login form */}

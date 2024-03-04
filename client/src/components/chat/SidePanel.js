@@ -68,7 +68,7 @@ function SidePanel() {
           <div className='sideMenu-brand-logo mb-5'>
             <NavLink to='/' className='logo'>
               <span>
-                <img src='/images/chat.png' alt='app-logo' />
+                <img src='/images/G_Link_Icon.png' alt='app-logo' />
               </span>
             </NavLink>
           </div>
@@ -93,7 +93,7 @@ function SidePanel() {
           <div className='sideMenu-brand-box mb-5'>
             <NavLink to='/' className='logo'>
               <span>
-                <img src='/images/chat.png' alt='app-logo' />
+                <img src='/images/G_Link_Icon.png' alt='app-logo' />
               </span>
             </NavLink>
           </div>

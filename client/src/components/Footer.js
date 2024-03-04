@@ -20,7 +20,7 @@ function Footer() {
           <div className='logo-footer-content'>
             <div className='logo flex justify-center items-center' /*data-aos='fade-up' data-aos-delay='100'*/>
               <a href='/'>
-                <img src='images/chat.png' alt='logo' />
+                <img src='images/G_Link_Icon.png' alt='logo' />
               </a>
             </div>
           </div>
@@ -52,6 +52,23 @@ function Footer() {
                 <li /*data-aos='fade-up' data-aos-delay='900'*/>
                   <a href='https://github.com/Shivaraj777/G-Link' title='github'>
                     <BsGithub />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className='links'>
+            <div className='footer-content'>
+              <ul>
+                <li /*data-aos='fade-up' data-aos-delay='900'*/>
+                  <a 
+                    href='https://www.instagram.com/graphiksdeign' 
+                    target='#'
+                    title='instagram' 
+                    className='navlink'
+                  >
+                    Logo Design by: @graphiksdeign
                   </a>
                 </li>
               </ul>
