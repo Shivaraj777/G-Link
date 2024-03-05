@@ -18,6 +18,7 @@ import ResetPassword from './components/auth/ResetPassword';
 import Loading from './components/Loading';
 import Verification from './components/Verification';
 import ErrorPage from './pages/ErrorPage';
+import PrivateRoute from './components/PrivateRoute';
 
 // dynamic imports
 const HomePage = React.lazy(() => import('./pages/HomePage'));
@@ -190,10 +191,17 @@ function App() {
                   <Route path='sign-up' element={<Signup />} />
                 </Route>
                 <Route exact path='/verify-email/:token' element={<VerifyEmail />} />
-                <Route exact path='/user/verification' element={<Verification />} />
+                {/* <Route exact path='/user/verification' element={<Verification />} /> */}
                 <Route exact path='/forgot-password' element={<ForgotPassword />} />
                 <Route exact path='/reset-password/:token' element={<ResetPassword />} />
                 <Route exact path='/*' element={<ErrorPage />} />
+                <Route 
+                  exact
+                  path='/user/verification'
+                  element={<PrivateRoute>
+                    <Verification />
+                  </PrivateRoute>}
+                />
               </Routes>
             </Suspense>
           )
