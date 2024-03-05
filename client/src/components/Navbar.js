@@ -26,7 +26,9 @@ function Navbar() {
                 <Link
                   to={item.path}
                   className='navbar-link'
+                  activeClass='active'
                   smooth={true}
+                  offset={-50}
                   duration={500}
                   onClick={() => setOpenMenu(false)}
                 >

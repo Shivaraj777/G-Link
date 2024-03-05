@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '../styles/Button';
 import styled from 'styled-components';
 import { HiChevronDoubleRight } from 'react-icons/hi'
+import { NavLink } from 'react-router-dom';
 
 function HeroSection() {
   return (
@@ -20,10 +21,12 @@ function HeroSection() {
             
             {/* gettig started button */}
             <div className='start-btn'>
-              <Button className='button hover:scale-105 text-white radius-round px-8 py-2'>
-                Get Started
-                <HiChevronDoubleRight className='ml-2' />
-              </Button>
+              <NavLink to='/auth'>
+                <Button className='button hover:scale-105 text-white radius-round px-8 py-2'>
+                  Get Started
+                  <HiChevronDoubleRight className='ml-2' />
+                </Button>
+              </NavLink>
             </div>
           </div>
         </div>

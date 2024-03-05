@@ -29,8 +29,10 @@ const StyledToggler = styled.div`
   border-radius: 8px;
   cursor: pointer;
 
-  .icon{
-    font-size: 2.3rem;
+  @media screen and (min-width: 981px){
+    .icon{
+        font-size: 2.3rem;
+    }
   }
 
   @media(max-width: 980px){
