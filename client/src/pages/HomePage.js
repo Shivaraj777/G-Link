@@ -33,7 +33,9 @@ function HomePage() {
   useEffect(() => {
     if(localStorage[ACCESS_TOKEN_KEY] && verifyToken()){
       getuserData();
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }else{
       dispatch(clearAuthStore());
       setLoading(false);
