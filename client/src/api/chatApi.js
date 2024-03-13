@@ -38,3 +38,15 @@ export const createChat = (userId) => {
     }
   });
 }
+
+
+// api call to remove user from group chat
+export const removeUserFromGroup = (data) => {
+  return customFetch(API_URLs.removeUserFromGroup(), {
+    method: 'PUT',
+    body: {
+      chatId: data.chatId,
+      userId: data.userId
+    }
+  });
+}
