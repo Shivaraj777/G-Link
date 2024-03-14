@@ -1,4 +1,4 @@
-import { createChat, createGroupChat, fetchChats, searchUsers } from "../../api/chatApi";
+import { createChat, createGroupChat, fetchChats, removeUserFromGroup, searchUsers } from "../../api/chatApi";
 
 
 // action types
@@ -10,6 +10,7 @@ export const FETCH_USERS = 'FETCH_USERS';
 export const CLEAR_FETCHED_USERS = 'CLEAR_FETCHED_USERS';
 export const CREATE_GROUP_CHAT = 'CREATE_GROUP_CHAT';
 export const CREATE_CHAT = 'CREATE_CHAT';
+export const REMOVE_USER_FROM_GROUP_CHAT = 'REMOVE_USER_FROM_GROUP_CHAT';
 export const ERROR = 'ERROR';
 
 
@@ -100,3 +101,15 @@ export const createNewChat = (userId) => async (dispatch) => {
     dispatch({ type: ERROR, payload: response.error });
   }
 } 
+
+
+// action creator to remove user from group chat
+export const removeUserFromGroupChat = (data) => async (dispatch) => {
+  const response = await removeUserFromGroup(data);
+
+  if(response.success === true){
+    dispatch({ type: REMOVE_USER_FROM_GROUP_CHAT, payload: response.data.updatedGroupChat });
+  }else{
+    dispatch({ type: ERROR, payload: response.error });
+  }
+}

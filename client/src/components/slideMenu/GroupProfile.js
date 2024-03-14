@@ -2,11 +2,14 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { RxCross2 } from 'react-icons/rx';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { removeUserFromGroupChat } from '../../redux/chat/chat.action';
+import { toast } from 'react-toastify';
 
 function GroupProfile(props) {
-  const { closeModal, groupPic, groupName, groupCreatedAt, groupUsers, groupAdmin} = props;
+  const dispatch = useDispatch();
+  const { closeModal, groupId, groupPic, groupName, groupCreatedAt, groupUsers, groupAdmin} = props;
   const [query, setQuery] = useState('');
 
   const loggedUser = useSelector((state) => state.user.userDetails);
@@ -15,6 +18,32 @@ function GroupProfile(props) {
   const searchUsers = (e) => {
     setQuery(e.target.value);
   };
+
+
+  // handle removing user from group
+  const removeFromGroup = async (userToRemove) => {
+    const userId = userToRemove.id;
+
+    if(groupUsers.length >= 4){
+      const data = {
+        chatId: groupId,
+        userId: userId
+      }
+  
+      if(loggedUser){
+        if(loggedUser._id === groupAdmin.id){
+          await dispatch(removeUserFromGroupChat(data));
+          toast.success(`${userToRemove.name} is removed from group`, {
+            autoClose: 2000
+          });
+        }
+      }
+    }else{
+      toast.warn('Group must have atleast 3 memebers', {
+        autoClose: 2000
+      });
+    }
+  }
 
 
   return (
@@ -110,14 +139,17 @@ function GroupProfile(props) {
                         </div>
 
                         <div className='data-status h-full'>
-                          {user.name === groupAdmin.name ? (
+                          {user.id === groupAdmin.id ? (
                             <>
                               <span className='text-xs'>Admin</span>
                             </>) : (
                               <>
                                 {groupAdmin.id === loggedUser._id ? (
                                   <>
-                                    <span className='text-xs cursor-pointer'>
+                                    <span 
+                                      className='text-xs cursor-pointer'
+                                      onClick={() => removeFromGroup(user)}
+                                    >
                                       Remove
                                     </span>
                                   </>) : (
