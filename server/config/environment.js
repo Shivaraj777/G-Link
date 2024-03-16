@@ -21,7 +21,7 @@ const development = {
 
 // production environment
 const production = {
-    name: 'development',
+    name: 'production',
     mongodb_url: process.env.GLINK_MONGODB_URL,
     jwt_secret_key: process.env.GLINK_JWT_SECRET_KEY,
     client_fqdn: process.env.GLINK_CLIENT_FQDN,

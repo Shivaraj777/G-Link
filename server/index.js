@@ -7,11 +7,12 @@ const cors = require('cors');
 
 const app = express();
 const port = process.env.port || 8000;
+const chatServerPort = process.env.port || 8080;
 
 // create chat server using express app
 const chatServer = require('http').createServer(app);
 const chatSockets = require('./config/chat_sockets').chatSockets(chatServer); 
-chatServer.listen(8080);
+chatServer.listen(chatServerPort);
 console.log('Chat server is listening on port 8080');
 
 // enable CORS

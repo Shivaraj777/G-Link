@@ -3,7 +3,6 @@
 // site FQDN
 // const API_ROOT = 'http://localhost:8000/api/v1';
 const API_ROOT = process.env.REACT_APP_API_ROOT_URL;
-// const API_ROOT = 'https://g-link-api.onrender.com/api/v1';
 
 // api urls
 export const API_URLs = {
@@ -30,5 +29,4 @@ export const ACCESS_TOKEN_KEY = '__glink_token__';
 
 // export const SERVER_ACCESS_BASE_URL = 'http://localhost:8080';
 export const SERVER_ACCESS_BASE_URL = process.env.REACT_APP_CHAT_SERVER_FQDN;
-// export const SERVER_ACCESS_BASE_URL = 'https://g-link-api.onrender.com:8080';
 
