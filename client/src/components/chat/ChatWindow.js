@@ -15,6 +15,7 @@ import io from 'socket.io-client';
 import { SERVER_ACCESS_BASE_URL } from '../../utils';
 import DropDown from './DropDown';
 import UserProfile from '../slideMenu/UserProfile';
+import { fetchUserChats } from '../../redux/chat/chat.action';
 
 let socket;
 let selectedChatCompare; // variable to check if received message is part of selected chat
@@ -185,6 +186,7 @@ function ChatWindow() {
     const eventHandler = (newMessageReceived) => {
       if(!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id){
         console.log('New message received');
+        dispatch(fetchUserChats());
       }else{
         setTimeout(() => {
           setCount(count + 1);
