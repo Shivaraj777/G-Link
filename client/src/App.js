@@ -179,11 +179,11 @@ function App() {
       <ToastContainer />
       <div className='App w-screen'>
         {loading ? (
-          <Loading />) : (
+          <Loading loading={loading} />) : (
             /* Suspense: suspend rendering the UI until component is loaded  
                fallback UI is displayed untill loading is completed
             */
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Loading loading={loading} />}>
               <Routes>
                 <Route exact path='/' element={<HomePage />} />
                 <Route path='/auth' element={<AuthPage />}>

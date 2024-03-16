@@ -38,7 +38,9 @@ function HomePage() {
       }, 1000);
     }else{
       dispatch(clearAuthStore());
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
       console.log('Access token key not found');
     }
 
@@ -75,17 +77,17 @@ function HomePage() {
     <>
       {loading ? (
         <>
-          <Loading />
+          <Loading loading={loading} />
         </>) : (
           <>
             {user?._id ? (
               <>
-                <Suspense fallback={<Loading />}>
+                <Suspense fallback={<Loading loading={loading} />}>
                   <Chat />
                 </Suspense>
               </>) : (
                 <>
-                  <Suspense fallback={<Loading />}>
+                  <Suspense fallback={<Loading loading={loading} />}>
                     <Landing />
                   </Suspense>
                 </>
