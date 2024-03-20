@@ -32,7 +32,7 @@ G-Link is a full stack chat web application using Express.js(Backend framework) 
 
 **Database:** MongoDB
 
-**Deployment:** Vercel(Frontend), Backend(Render)
+**Deployment:** Vercel(Frontend), Backend(Render), Database(MongoDB Atlas)
 
 
 ## Application/Project setup
